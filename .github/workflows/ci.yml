@@ -1,0 +1,74 @@
+name: CI
+
+# Pokreni workflow na push ili pull_request događaje
+# samo ako su izmenjeni fajlovi u src, test, mock ili inc direktorijumima
+on:
+  push:
+    branches: 
+      - "*"
+    paths:
+      - "src/**"
+      - "test/**"
+      - "mock/**"
+      - "inc/**"
+      - "*.sh"
+      - ".github/workflows/ci.yml"
+  pull_request:
+    branches: [main]
+    paths:
+      - "src/**"
+      - "test/**"
+      - "mock/**"
+      - "inc/**"
+      - "*.sh"
+      - ".github/workflows/ci.yml"
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Checkout koda
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # 2. Instaliraj potrebne zavisnosti
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            git \
+            build-essential \
+            pkg-config \
+            cmake \
+            valgrind \
+            gdb \
+            cppcheck \
+            zip \
+            unzip \
+            ca-certificates \
+            libpcsclite-dev
+
+      # 3. Kloniraj i instaliraj Google Test
+      - name: Clone and build Google Test
+        run: |
+          git clone https://github.com/google/googletest.git
+          mkdir -p googletest/build
+          cd googletest/build
+          cmake ..
+          sudo cmake --build . --target install
+
+      # 4. Dajte execute permisije skripti
+      - name: Make execute.sh executable
+        run: chmod +x ./execute.sh
+
+      # 5. Pokreni testove
+      - name: Run tests
+        run: ./execute.sh
+
+      # Opcionalno: Čuvanje test rezultata kao artefakta
+      # - name: Upload test results
+      #   uses: actions/upload-artifact@v3
+      #   with:
+      #     name: test-results
+      #     path: path/to/test/results
