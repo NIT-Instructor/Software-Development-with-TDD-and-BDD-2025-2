@@ -53,15 +53,16 @@ else
 fi
 
 # Push the tag
-git push origin "${TAG_NAME}"
-
-# Create branches for each team from the tag
-for NAME in "${TEAM_NAMES[@]}"; do
-  BRANCH="${NAME}${BRANCH_SUFFIX}"
-  echo "Creating/updating branch: ${BRANCH} from ${TAG_NAME}"
-  git checkout -B "${BRANCH}" "${TAG_NAME}"
-  git push --set-upstream origin "${BRANCH}" --force-with-lease
-done
+if [[ "${FORCE_TAG}" == "true" ]]; then
+  # try force-pushing; if blocked, fall back to delete+push
+  if ! git push --force origin "refs/tags/${TAG_NAME}"; then
+    echo "Force push blocked; trying delete+recreate on remote..."
+    git push origin ":refs/tags/${TAG_NAME}"
+    git push origin "refs/tags/${TAG_NAME}"
+  fi
+else
+  git push origin "refs/tags/${TAG_NAME}"
+fi
 
 # Return to main at the end
 git checkout main
