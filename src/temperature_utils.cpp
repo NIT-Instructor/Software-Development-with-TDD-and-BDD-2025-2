@@ -9,6 +9,5 @@ int CelsiusToKelvin(int celsius_)
 
 int CelsiusDecigradeToCelsius(int decigrade_)
 {
-    // Example function definition (TODO: students will implement this)
-    return 0; // Placeholder
+    return decigrade_ / 10;
 }
