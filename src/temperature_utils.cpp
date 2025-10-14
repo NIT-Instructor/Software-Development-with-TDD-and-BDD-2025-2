@@ -11,3 +11,8 @@ int CelsiusDecigradeToCelsius(int decigrade_)
 {
     return decigrade_ / 10;
 }
+
+int KelvinToCelsius(int kelvin_)
+{
+    return kelvin_ - 273;
+}

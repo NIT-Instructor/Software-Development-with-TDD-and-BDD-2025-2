@@ -11,3 +11,13 @@ TEST(TemperatureUtils, WhenCelsiusDecigradesToCelsiusIsCalledWith100_Then10Shoul
 {
     EXPECT_EQ(CelsiusDecigradeToCelsius(100), 10);
 }
+
+TEST(TemperatureUtils, WhenKelvinToCelsiusIsCalledWith273_Then0ShouldBeReturned)
+{
+    EXPECT_EQ(KelvinToCelsius(273), 0);
+}
+
+TEST(TemperatureUtils, WhenKelvinToCelsiusIsCalledWith300_Then27ShouldBeReturned)
+{
+    EXPECT_EQ(KelvinToCelsius(300), 27);
+}
