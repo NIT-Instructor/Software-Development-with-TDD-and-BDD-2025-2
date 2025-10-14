@@ -45,4 +45,24 @@ TEST(TemperatureUtils, WhenCelsiusDecigradesToCelsiusIsCalledWith330_Then33Shoul
     EXPECT_EQ(expected, result);
 }
 
+//User Story 1.3: Convert Kelvin to Celsius
+TEST(TemperatureUtils, WhenKelvinToCelsiusIsCalledWith273_Then0ShouldBeReturned) {
+    // Test data: 273 K = 0°C
+    double kelvin = 273.0;
+    double expected = 0.0;
+    // Call function under test
+    double result = KelvinToCelsius(kelvin);
+    // Assert expected result
+    EXPECT_EQ(expected, result);
+}
+
+TEST(TemperatureUtils, WhenKelvinToCelsiusIsCalledWith280_Then7ShouldBeReturned) {
+    // Test data: 280 K = 7°C
+    double kelvin = 280.0;
+    double expected = 7.0;
+    // Call function under test
+    double result = KelvinToCelsius(kelvin);
+    // Assert expected result
+    EXPECT_EQ(expected, result);
+}
 // TODO: Students will add more test cases for other temperature conversions
