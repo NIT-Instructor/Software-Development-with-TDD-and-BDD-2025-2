@@ -6,3 +6,8 @@ TEST(TemperatureUtils, WhenCelsiusToKelvinIsCalledWith0_Then273ShouldBeReturned)
 {
     EXPECT_EQ(CelsiusToKelvin(0), 273);
 }
+
+TEST(TemperatureUtils, WhenCelsiusDecigradesToCelsiusIsCalledWith100_Then10ShouldBeReturned)
+{
+    EXPECT_EQ(CelsiusDecigradeToCelsius(100), 10);
+}
