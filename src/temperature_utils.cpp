@@ -1,15 +1,19 @@
 #include "temperature_utils.hpp"
 
-// Function definitions
+int KELVIN_FACTOR = 273;
 
+// Function definitions
 int CelsiusToKelvin(int celsius_)
 {
-    // Example function definition (TODO: students will implement this)
-    return 273; // Placeholder
+    return celsius_ + KELVIN_FACTOR;
 }
 
 int CelsiusDecigradeToCelsius(int decigrade_)
 {
-    // Example function definition (TODO: students will implement this)
-    return 0; // Placeholder
+    return decigrade_ / 10;
+}
+
+int KelvinToCelsius(int kelvin_)
+{
+    return kelvin_ - KELVIN_FACTOR;
 }
