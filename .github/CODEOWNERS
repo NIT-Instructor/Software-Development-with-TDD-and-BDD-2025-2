@@ -1,0 +1,6 @@
+# CODEOWNERS file
+# This file defines code ownership for the repository
+# Each line is a file pattern followed by one or more owners
+
+# Default owners for all files in the repository
+* @NIT-Instructor @momokrunic
