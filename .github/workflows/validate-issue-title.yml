@@ -21,10 +21,10 @@ jobs:
             // Regex patterns:
             // Regular teams: <Team Name> - User Story <us num>: Title of user story
             // Admin team: admin - title of issue
-            // Only allowed team names: kent, fowler, farely, deming, admin (case-insensitive)
+            // Only allowed team names: kent, fowler, farley, deming, admin (case-insensitive)
             // User story numbers can be integers or decimals (e.g., 1, 2.3, 10.15)
             // All parts of the title are case-insensitive
-            const regularTeamPattern = /^(kent|fowler|farely|deming)\s*-\s*user\s+story\s+\d+(\.\d+)?\s*:\s*.+$/i;
+            const regularTeamPattern = /^(kent|fowler|farley|deming)\s*-\s*user\s+story\s+\d+(\.\d+)?\s*:\s*.+$/i;
             const adminPattern = /^admin\s*-\s*.+$/i;
             const isValid = regularTeamPattern.test(title) || adminPattern.test(title);
 
@@ -42,12 +42,12 @@ jobs:
             For admin team:
             \`admin - title of issue\`
 
-            **Allowed team names:** kent, fowler, farely, deming, admin
+            **Allowed team names:** kent, fowler, farley, deming, admin
 
             **Examples:**
             - \`kent - User Story 1: Implement login feature\`
             - \`fowler - User Story 42: Add API endpoint for user registration\`
-            - \`farely - User Story 5: Create responsive navigation menu\`
+            - \`farley - User Story 5: Create responsive navigation menu\`
             - \`deming - User Story 12: Fix temperature calculation bug\`
             - \`admin - Update repository settings\`
             - \`admin - Create new workflow for CI/CD\`
