@@ -17,9 +17,7 @@ class Filter
 {
   public:
     Filter();
-
-  private:
+    int FilterData();
   PRIVATE:
-    std::array<uint8_t, kBufferSize> buffer_;
-
+  std::array<int, kBufferSize> buffer_;
 };
