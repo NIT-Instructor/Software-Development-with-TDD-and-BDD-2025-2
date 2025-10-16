@@ -8,7 +8,6 @@ class UtFilter : public ::testing::Test
 public:
   UtFilter();
   void SetUp() override;
-  void InitializeBuffer(uint8_t i);
 
 protected:
   Filter filter_;
