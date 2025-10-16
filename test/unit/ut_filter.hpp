@@ -10,6 +10,6 @@ public:
   void SetUp() override;
   void InitializeBuffer(uint8_t i);
 
-PRIVATE:
+protected:
   Filter filter_;
 };
