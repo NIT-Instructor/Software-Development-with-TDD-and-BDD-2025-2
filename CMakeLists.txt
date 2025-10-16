@@ -3,6 +3,8 @@ project(NIT_TDD)
 
 find_package(GTest REQUIRED)
 
+add_definitions(-DTESTING)
+
 option(CODE_COVERAGE "Build with code coverage" OFF)
 
 if(CODE_COVERAGE)

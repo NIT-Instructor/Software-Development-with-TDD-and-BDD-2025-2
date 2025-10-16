@@ -1,11 +1,12 @@
 #include "ut_filter.hpp"
 
-UtFilter::UtFilter() : filter_()
+UtFilter::UtFilter()
 {
 }
 
 void UtFilter::InitializeBuffer(uint8_t i)
 {
+    filter_.buffer_.fill(i);
 }
 
 void UtFilter::SetUp()
