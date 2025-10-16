@@ -22,7 +22,8 @@ jobs:
                       // Regular teams: <Team Name> - User Story <us num>: Title of user story
                       // Admin team: admin - title of issue
                       // Only allowed team names: kent, fowler, farely, deming, admin
-                      const regularTeamPattern = /^(kent|fowler|farely|deming) - User Story \d+: .+$/;
+                      // User story numbers can be integers or decimals (e.g., 1, 2.3, 10.15)
+                      const regularTeamPattern = /^(kent|fowler|farely|deming) - User Story \d+(\.\d+)?: .+$/;
                       const adminPattern = /^admin - .+$/;
                       const isValid = regularTeamPattern.test(title) || adminPattern.test(title);
 
