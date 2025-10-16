@@ -11,6 +11,7 @@ class Filter
 {
   public:
     Filter();
+    float FilterData();
   PRIVATE:
     std::array<uint8_t, BufferSize> buffer_;
 };
