@@ -5,6 +5,8 @@ add_executable(${BINARY} ${TEST_SOURCES} test_main.cpp)
 
 add_test(NAME ${BINARY} COMMAND ${BINARY})
 
+add_definitions(-DTESTING)
+
 target_link_libraries(${BINARY} PUBLIC 
     gtest
     gmock
