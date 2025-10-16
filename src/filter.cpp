@@ -12,7 +12,10 @@
 
    Filter::Filter () {
     for (int i = 0; i <= kBufferSize; i++) {
-        buffer_[i] = 0;
+        buffer_[i] = 1;
     }
+   }
+   uint8_t Filter::FilterData() {
+     return 1;
    }
 
