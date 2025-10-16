@@ -2,7 +2,7 @@
 
 Filter::Filter()
 {
-    for(int i = 0; i < 9; i++)
+    for(int i = 0; i < kBufferSize; i++)
     {
         buffer_[i] = 0;
     }

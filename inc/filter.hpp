@@ -20,6 +20,6 @@ class Filter
 
   private:
   PRIVATE:
-    std::array<uint8_t, 9> buffer_;
+    std::array<uint8_t, kBufferSize> buffer_;
 
 };
