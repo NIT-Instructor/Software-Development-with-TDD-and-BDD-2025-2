@@ -3,9 +3,6 @@ project(NIT_TDD)
 
 find_package(GTest REQUIRED)
 
-add_definitions(-DMOCK_ENABLE=${MOCK_ENABLE})
-
-
 option(CODE_COVERAGE "Build with code coverage" OFF)
 
 if(CODE_COVERAGE)
