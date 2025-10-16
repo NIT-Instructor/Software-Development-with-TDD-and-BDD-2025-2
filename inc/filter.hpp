@@ -10,6 +10,8 @@ class Filter
 {
   public:
     Filter();
+    void FillBufferWithWalue(uint8_t value);
+    float FilterData();
 
   PRIVATE:
     std::array<uint8_t, kBufferSize> buffer_;
