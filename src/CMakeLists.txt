@@ -1,6 +1,7 @@
 set(TARGETLIB "TemperatureMonitor")
 
 set(LIB_SOURCE_FILES 
+    filter.cpp
     temperature_utils.cpp)
 
 set(ADDITIONAL_INCLUDE_DIRS ../inc)
