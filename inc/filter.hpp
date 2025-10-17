@@ -5,11 +5,13 @@
 
 #include "common.hpp"
 
-constexpr uint8_t kBufferSize = 9;
+constexpr std::size_t BufferSize = 9;
 
 class Filter
 {
   public:
     Filter();
-
+    float FilterData();
+  PRIVATE:
+    std::array<uint8_t, BufferSize> buffer_;
 };
