@@ -14,3 +14,17 @@ TEST_F(UtFilter, WhenApplyFilterWithDataAllSetToOnes_ThenReturnOneAsAverageValue
   InitializeBuffer(1);
   ASSERT_EQ(filter_.FilterData(), 1);
 }
+
+TEST_F(UtFilter, WhenApplyFilterWithDataAllSetToSix_ThenReturnSixAsAverageValue)
+{
+  InitializeBuffer(6);
+  ASSERT_EQ(filter_.FilterData(), 6);
+}
+
+TEST_F(UtFilter, WhenApplyFilterWithDataAllSetFromOneToNine_ThenReturnFiveAsAverageValue)
+{
+  for(int j = 0; j < filter_.buffer_.size(); j++) {
+      filter_.buffer_[j] = j+1;
+  }
+  ASSERT_EQ(filter_.FilterData(), 5);
+}
