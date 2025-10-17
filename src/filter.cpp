@@ -2,10 +2,10 @@
 
 Filter::Filter()
 {
-    buffer_.fill(0);
+    buffer_.fill(0.0f);
 }
 
-void Filter::FillBufferWithWalue(uint8_t value)
+void Filter::FillBufferWithValue(float value)
 {
     for (auto &item : buffer_)
     {
@@ -18,8 +18,8 @@ float Filter::FilterData()
     float sum = 0.0f;
     for (const auto &item : buffer_)
     {
-        sum += (item);
+        sum += item;
     }
 
-    return sum / (kBufferSize);
+    return sum / static_cast<float>(kBufferSize);
 }
