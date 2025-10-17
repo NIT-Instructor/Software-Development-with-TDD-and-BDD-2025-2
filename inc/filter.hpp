@@ -15,6 +15,6 @@ class Filter
  
   PRIVATE:
     std::array<uint8_t, kBufferSize> buffer_;
-    uint8_t FilterData();
+    uint16_t FilterData();
     void UpdateFilterData(uint8_t new_value);
 };

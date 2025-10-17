@@ -17,7 +17,7 @@
     }
   }
 
-  uint8_t Filter::FilterData() 
+  uint16_t Filter::FilterData() 
   {
     uint16_t sum = 0;
 
