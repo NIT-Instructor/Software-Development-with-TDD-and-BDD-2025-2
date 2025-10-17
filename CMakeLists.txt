@@ -4,6 +4,7 @@ project(NIT_TDD)
 find_package(GTest REQUIRED)
 
 option(CODE_COVERAGE "Build with code coverage" OFF)
+option(CODE_TESTING "Build with GoogleTests" ON)
 
 if(CODE_COVERAGE)
     if(CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
@@ -14,4 +15,9 @@ if(CODE_COVERAGE)
 endif()
 
 add_subdirectory(src)
-add_subdirectory(test)
+
+if(CODE_TESTING)
+    message(STATUS "Defining CODE_TESTING globally")
+    add_definitions(-DCODE_TESTING)
+    add_subdirectory(test)
+endif()
