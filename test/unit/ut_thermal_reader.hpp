@@ -3,13 +3,18 @@
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
 
-// #include "mock_filter.hpp"
-// #include "thermal_reader.hpp"
+#include "mock_filter.hpp"
+#include "thermal_reader.hpp"
 
 class UtThermalReader : public ::testing::Test
 {
-  // Students need to implement
+public:
+  UtThermalReader();
+  void SetUp() override;
 
-  // Inject here ::testing::NiceMock<MockFilter>
-  // and ThermalReader
+protected:
+  ::testing::NiceMock<MockFilter> mock_filter_;
+
+  // ThermalReader under test, injected with the mock filter
+  ThermalReader temperature_reader_;
 };

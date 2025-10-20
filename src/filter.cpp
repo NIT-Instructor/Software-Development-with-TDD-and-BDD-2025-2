@@ -5,6 +5,8 @@ Filter::Filter() : buffer_{0}, head_{-1}
 {
 }
 
+Filter::~Filter() = default;
+
 bool Filter::UpdateFilterData(int newValue)
 {
     head_          = (head_ + 1) % kBufferSize;

@@ -11,9 +11,10 @@ class Filter
 {
   public:
     Filter();
+    virtual ~Filter();
 
     bool UpdateFilterData(int new_value);
-    int  FilterData();
+    MOCKABLE int FilterData();
 
     PRIVATE : std::array<uint8_t, kBufferSize> buffer_;
     int                                        head_;
