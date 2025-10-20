@@ -5,7 +5,7 @@ Filter::Filter()
     buffer_.fill(0);
 }
 
-int Filter::FilterData() {
+int Filter::FilterData() const {
     int average = 0;
     for (auto it : buffer_)
     {
