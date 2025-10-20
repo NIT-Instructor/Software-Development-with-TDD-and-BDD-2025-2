@@ -1,6 +1,7 @@
 #pragma once
 
 #include "filter.hpp"
+#include <gmock/gmock.h>
 #include <gtest/gtest.h>
 
 class UtFilter : public ::testing::Test

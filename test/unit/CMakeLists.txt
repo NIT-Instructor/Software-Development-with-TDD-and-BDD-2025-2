@@ -9,4 +9,5 @@ target_link_libraries(${BINARY} PUBLIC
     gtest
     gmock
     TemperatureMonitor
+    MocksTemperatureMonitorApp
 )

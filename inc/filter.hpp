@@ -12,4 +12,9 @@ class Filter
   public:
     Filter();
 
+    bool UpdateFilterData(int new_value);
+    int  FilterData();
+
+    PRIVATE : std::array<uint8_t, kBufferSize> buffer_;
+    int                                        head_;
 };
