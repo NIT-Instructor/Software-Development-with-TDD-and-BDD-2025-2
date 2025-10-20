@@ -5,6 +5,8 @@ Filter::Filter() : buffer_{0}, head_{-1}
 {
 }
 
+Filter::~Filter() = default;
+
 // BUG - update only first value in buffer
 // bool Filter::UpdateFilterData(int newValue)
 // {

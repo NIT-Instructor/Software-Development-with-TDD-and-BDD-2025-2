@@ -11,6 +11,7 @@ class Filter
 {
   public:
     Filter();
+    virtual ~Filter();
 
     MOCKABLE bool UpdateFilterData(int new_value);
     MOCKABLE int  FilterData();

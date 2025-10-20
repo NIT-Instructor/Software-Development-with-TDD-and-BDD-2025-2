@@ -6,3 +6,4 @@ UtThermalReader::UtThermalReader()
     // Students need to inject any additional dependencies required for 
     // processing temperature data (e.g., RawTempFacade) when expanding the functionality.
 }
+

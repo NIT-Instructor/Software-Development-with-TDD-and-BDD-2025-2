@@ -1,7 +1,7 @@
 #pragma once
 
-#include "filter.hpp"
 #include <gmock/gmock.h>
+#include "filter.hpp"
 
 class MockFilter : public Filter
 {
@@ -12,3 +12,4 @@ class MockFilter : public Filter
     MOCK_METHOD(int, FilterData, (), (override));
     MOCK_METHOD(bool, UpdateFilterData, (int), (override));
 };
+
