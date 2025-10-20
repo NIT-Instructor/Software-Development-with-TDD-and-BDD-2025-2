@@ -4,11 +4,22 @@
 constexpr int kDefaultValueForTemperature = 33;
 constexpr int kRawTemperatureStubValue = 42;
 
-// User Story 3.1: Inject Mock Filter into ThermalReader
-TEST_F(UtThermalReader, WhenReadFilteredTemperatureIsCalled_ThenItShouldReturnMockValue33)
+// User Story 3.2: Implement MockFilter Class
+TEST_F(UtThermalReader, WhenReadFilteredTemperatureIsCalled_ThenItShouldReturnDefaultValueForTemperature)
 {
-    //ON_CALL(mock_filter_, FilterData()).WillByDefault(testing::Return(kDefaultValueForTemperature));
+    auto return_value = temperature_reader_->ReadFilteredTemperature();
+    EXPECT_EQ(return_value, kDefaultValueForTemperature);
+}
 
-    //auto return_value = temperature_reader_.ReadFilteredTemperature();
-    EXPECT_EQ(kDefaultValueForTemperature, kDefaultValueForTemperature);
+TEST_F(UtThermalReader, WhenReadReadFilteredTemperatureIsCalled_ThenMockFilterFilterDataShouldBeCalledOnce)
+{
+    EXPECT_CALL(mock_filter_, FilterData()).Times(1);
+    temperature_reader_->ReadFilteredTemperature();
+}
+
+TEST_F(UtThermalReader, WhenReadReadFilteredTemperatureIsCalledTwice_ThenMockFilterFilterDataShouldBeCalledTwice)
+{
+    EXPECT_CALL(mock_filter_, FilterData()).Times(2);
+    temperature_reader_->ReadFilteredTemperature();
+    temperature_reader_->ReadFilteredTemperature();
 }
