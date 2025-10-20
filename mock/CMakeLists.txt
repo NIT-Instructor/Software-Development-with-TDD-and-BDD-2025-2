@@ -1,0 +1,3 @@
+add_library(MocksTemperatureMonitorApp INTERFACE)
+
+target_include_directories(MocksTemperatureMonitorApp INTERFACE ${CMAKE_CURRENT_SOURCE_DIR})
