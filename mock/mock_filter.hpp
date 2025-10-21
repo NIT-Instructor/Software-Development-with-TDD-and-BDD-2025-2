@@ -1,11 +1,12 @@
 #pragma once
 
-#include "filter.hpp"
 #include <gmock/gmock.h>
+#include "filter.hpp"
 
 class MockFilter : public Filter
 {
-
-  // Mock FilterData and UpdateFilterData
-  // MOCK_METHOD(<return type>, <MethodName>, (input type), (override));
+public:
+    MockFilter() = default;
+    MOCK_METHOD(int, FilterData, (), (const, override));
 };
+

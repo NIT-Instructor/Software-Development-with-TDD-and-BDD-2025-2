@@ -1,9 +1,10 @@
 cmake_minimum_required (VERSION 3.12.0)
 project(NIT_TDD)
 
-find_package(GTest REQUIRED)
+option(BUILD_TESTING "Enable building tests" ON)
+enable_testing()
 
-add_definitions(-DTESTING=${TESTING})
+find_package(GTest REQUIRED)
 
 option(CODE_COVERAGE "Build with code coverage" OFF)
 

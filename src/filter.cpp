@@ -5,6 +5,8 @@ Filter::Filter() : buffer_{0}, head_{-1}
 {
 }
 
+Filter::~Filter() = default;
+
 bool Filter::UpdateFilterData(int newValue)
 {
     head_          = (head_ + 1) % kBufferSize;
@@ -12,7 +14,7 @@ bool Filter::UpdateFilterData(int newValue)
     return true;
 }
 
-int Filter::FilterData()
+int Filter::FilterData() const
 {
     int sum = 0;
     for (int value : buffer_)

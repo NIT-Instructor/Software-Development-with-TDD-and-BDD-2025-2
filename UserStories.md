@@ -94,17 +94,36 @@ Test Setup:
 - **When** the FilterData() method is called,
 - **Then** the method should accurately compute and return the average of the data in the buffer.
 
+Exercise 3: Testing Classes and Using Fixtures
 
-### **User Story 2.3: Update Temperature Buffer with New Values**
+## **Exercise 3: Introduction to GMock, Dependency Injection, and Mocks**
 
-**As a Hardware Monitor,**  
-I want to have all the latest and greates temperature values,  
-**So that** I can monitor hardware appropriately.
+### User Story 3.1: ThermalReader Provides Accurate and Stable Temperature Data to the Hardware Monitor
 
-**Scenario:**
+**As a Hardware Monitor,**
+I want to have all the latest and greatest temperature values,
+**So that** can monitor hardware appropriately and respond to environmental changes in real time.
 
-- **Given** there is a hardware that is sensitive for temperature changes,  
-- **When** temperature changes,  
-- **Then** the average value changes accordingly.
+**Scenario 1:** ThermalReader updates average temperature when sensor values change
 
----
+- **Given** there is hardware that is sensitive to temperature fluctuations
+- **And** the ThermalReader continuously reads raw temperature values
+- **When** the temperature changes from one reading to another
+- **Then** the Filter should calculate a new average temperature
+- **And** the ThermalReader should provide the updated average to the Hardware Monitor
+
+**Scenario 2:** ThermalReader applies filtering to stabilize temperature readings
+
+- **Given** the hardware requires stable readings to avoid reacting to noise
+- **And** ThermalReader passes raw sensor values through a Filter
+- **When** rapid fluctuations occur in the input readings (e.g., [60.0, 61.5, 59.0, 60.8])
+- **Then** the resulting average temperature should change gradually
+- **And** the Hardware Monitor should receive a smooth, stable temperature trend
+
+**Scenario 3:** ThermalReader ensures latest temperature is always available
+
+- **Given** the system collects temperatures periodically
+- **When** the Hardware Monitor requests the current temperature
+- **Then** ThermalReader should return the most recent filtered value
+- **And** ensure no outdated or stale data is provided
+
