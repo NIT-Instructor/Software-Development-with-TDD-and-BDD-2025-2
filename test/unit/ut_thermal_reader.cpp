@@ -1,6 +1,15 @@
 #include "ut_thermal_reader.hpp"
 
-UtThermalReader::UtThermalReader()
+UtThermalReader::UtThermalReader() {}
+
+void UtThermalReader::SetUp()
 {
-    // Students need to implement
+    std::cout << "SetUp" << std::endl;
+    temperature_reader_ = new ThermalReader(mock_filter_);
+}
+
+void UtThermalReader::TearDown()
+{
+    std::cout << "TearDown" << std::endl;
+    delete temperature_reader_;
 }

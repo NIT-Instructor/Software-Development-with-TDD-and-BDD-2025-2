@@ -108,3 +108,62 @@ I want to have all the latest and greates temperature values,
 - **Then** the average value changes accordingly.
 
 ---
+
+## **Exercise 3: Introduction to GMock, Dependency Injection, and Mocks**
+
+### **User Story 3.1: Make FilterData() Mockable**
+
+**As a developer,**  
+I want to make the FilterData() method mockable using the MOCKABLE macro,
+**So that** I can create mock classes for unit testing without impacting production performance.
+
+**Scenario:**
+
+- **Given** the Filter class defines the FilterData() method,  
+- **When** the MOCK_ENABLE flag is defined during test builds,  
+- **Then** the FilterData() method should become virtual through the MOCKABLE macro,
+- **And** in production builds (where MOCK_ENABLE is not defined), the method should remain non-virtual.
+
+### **User Story 3.2: Implement MockFilter Class**
+
+**As a developer,**  
+I want to create a MockFilter class that overrides the FilterData() method,
+**So that** I can simulate various filtering behaviors during tests.
+
+**Scenario:**
+
+- **Given** a base class Filter with a MOCKABLE FilterData() method, 
+- **When** I define a MockFilter subclass using GoogleMock,
+- **Then** I should be able to mock the FilterData() method’s behavior.
+
+### **User Story 3.3: Verify Behavior of ThermalReader with MockFilter**
+
+**As a tester,**  
+I want to verify that the ThermalReader class interacts correctly with the Filter through a MockFilter,
+**So that** I can confirm that the system behaves correctly when the filter’s output changes.
+
+**Scenario 1: Successful Data Retrieval**
+
+- **Given** a ThermalReader instance that depends on a Filter,
+- **And Given** a MockFilter returning a defined temperature value,
+- **When** the ThermalReader calls FilterData(),
+- **Then** the expected temperature value should be used correctly in its calculations.
+
+**Scenario 2: Behavior Under Different Filter Outputs**
+
+- **Given** MockFilter is configured to return different values across multiple calls,
+- **When** ThermalReader reads temperature multiple times,
+- **Then** it should handle each returned value appropriately.
+
+### **User Story 3.4: Test ReadFilteredTemp() Using MockFilter**
+
+**As a tester,**  
+I want to use the MockFilter to test the ReadFilteredTemp() method in the ThermalReader class,
+**So that** I can verify that ThermalReader behaves correctly based on the mocked output from FilterData().
+
+**Scenario:**
+
+- **Given** a ThermalReader class that depends on a Filter for temperature data,
+- **And Given** a MockFilter instance is injected into ThermalReader through constructor injection,
+- **When** ReadFilteredTemp() is called,
+- **Then** it should return a value consistent with the mock behavior defined for FilterData().

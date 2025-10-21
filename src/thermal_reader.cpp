@@ -7,8 +7,7 @@ ThermalReader::ThermalReader(Filter &filter)
 
 int ThermalReader::ReadFilteredTemperature()
 {
-    // Students will implement the logic to read filtered temperature using FilterData()
-    return 0; // Placeholder value
+    return filter_.FilterData();
 }
 
 bool ThermalReader::UpdateCurrentTemp()
