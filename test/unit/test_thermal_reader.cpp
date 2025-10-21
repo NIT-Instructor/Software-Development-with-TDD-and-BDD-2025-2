@@ -2,6 +2,8 @@
 #include "ut_thermal_reader.hpp"
 #include "../../inc/mock_filter.hpp"
 #include "../../inc/thermal_reader.hpp"
+#include <gmock/gmock.h>
+
 
 constexpr int kDefaultValueForTemperature = 33;
 constexpr int kRawTemperatureStubValue = 42;
@@ -17,4 +19,20 @@ TEST_F(UtThermalReader, WhenReadFilteredTemperatureIsCalled_ThenItShouldReturnMo
     ThermalReader temperature_reader_(mock_filter_);
     auto return_value = temperature_reader_.ReadFilteredTemperature();
     EXPECT_EQ(return_value, kDefaultValueForTemperature);
+}
+
+// User Story 3.2: Apply GoogleMock for Controlled Testing
+TEST_F(UtThermalReader, WhenReadFilteredTemperatureIsCalled_VerifyThatMethodIsCalledAsExpected)
+{
+
+    MockFilter mock_filter_;
+
+    EXPECT_CALL(mock_filter_, FilterData()).Times(1).WillOnce(testing::Return(kDefaultValueForTemperature));
+
+    ThermalReader temperature_reader_(mock_filter_);
+    auto return_value = temperature_reader_.ReadFilteredTemperature();
+
+    EXPECT_EQ(return_value, kDefaultValueForTemperature);
+
+
 }

@@ -7,7 +7,7 @@ class MockFilter : public Filter {
 
     public:
     
-    MOCK_METHOD(int, FilterData, ());
+    MOCK_METHOD(int, FilterData, () , ());
 
 
 };

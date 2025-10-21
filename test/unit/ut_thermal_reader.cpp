@@ -3,6 +3,7 @@
 UtThermalReader::UtThermalReader()
 {
     // Students need to implement
+    
 }
 void UtThermalReader::SetUp()
 {

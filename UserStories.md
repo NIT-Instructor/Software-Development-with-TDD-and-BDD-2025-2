@@ -125,43 +125,37 @@ I want to create a mock version of the Filter class (MockFilter),
 ### **User Story 3.2: Apply GoogleMock for Controlled Testing**
 
 **As a developer running tests for ThermalReader,**  
-I want to understand and apply GoogleMock (gMock) to define, control, and verify mock behavior,
-**So that** I can effectively simulate dependencies and validate object interactions in tests.
+I want to use GoogleMock to expect and verify a single call to FilterData(),
+**So that** I can ensure ReadFilteredTemperature() interacts with dependencies exactly once as intended.
 
-**Scenario1: Define mock methods using gMock**
+**Scenario1: Expect single call to FilterData**
 
-- **Given** a mock class inherits from a base dependency,
-- **When** declare a mock method using the MOCK_METHOD macro,
-- **Then** the mock method should compile successfully,
-- **And** it should be usable in tests to simulate different return values.
+- **Given** a MockFilter instance is created
+- **And** it is passed to ThermalReader upon initialization
+- **And** EXPECT_CALL(mockFilter, FilterData()).Times(1) is set with WillOnce(Return(V))
+- **When** ReadFilteredTemperature() is invoked
+- **Then** it should call FilterData() exactly once
+- **And** return the value V as defined in WillOnce
 
-**Scenario2: Control defualt mock behaviour**
 
-- **Given** a mock object is created in a test,
-- **When** I apply ON_CALL(mockObject, MethodName(matchers)).WillByDefault(Return(value)),
-- **Then** the method should return the specified default value,
-- **And** allow tests to proceed without explicit expectations.
+### **User Story 3.3: Validate ReadFilteredTemp() with Multiple and Repeated Returns**
 
-### **User Story 3.3: Validate ReadFilteredTemp() Using MockFilter**
+**As a developer validating multiple outcomes from ReadFilteredTemperature()**,
+I want to configure MockFilter to return different values on successive and repeated calls,
+**So that** I can confirm that ThermalReader handles dynamic mock responses correctly.
 
-**As a developer verifying the ThermalReader component,**  
-I want to use MockFilter to simulate FilterData() outputs,
-**So that** I can confirm ReadFilteredTemp() processes temperature data correctly under different filter behaviors.
-
-**Scenario1: ReadFilteredTemp() returns mock-defined value**
-
+**Scenario 1: Return distinct values on multiple calls**
 - **Given** a MockFilter instance is injected into ThermalReader
-- **And** ON_CALL(mockFilter, FilterData()).WillByDefault(Return(N));
-- **When** ReadFilteredTemp() is invoked
-- **Then** it should return N
-- **And** no actual filtering logic from the real Filter class should execute.
+- **And** EXPECT_CALL(mockFilter, FilterData()) is set with WillOnce(Return(X)) followed by WillOnce(Return(Y))
+- **When** ReadFilteredTemperature() is called twice
+- **Then** the first call should return X
+- **And** the second call should return Y
 
-**Scenario2: Validate multiple expected outputs**
 
-- **Given** EXPECT_CALL(mockFilter, FilterData())
-  .WillOnce(Return(X)).WillOnce(Return(Y)),
-- **When** ReadFilteredTemp() is called twice,
-- **Then** the first call should return X,
-- **And** the second call should return Y.
+**Scenario 2: Use WillRepeatedly for fallback behavior**
+- **Given** a MockFilter is configured with EXPECT_CALL(mockFilter, FilterData()).WillOnce(Return(X)).WillOnce(Return(Y)).WillRepeatedly(Return(Z))
+- **When** ReadFilteredTemperature() is called more than twice
+- **Then** the third and all subsequent calls should return Z 
+
 
 ---
