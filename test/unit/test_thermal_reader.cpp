@@ -36,3 +36,43 @@ TEST_F(UtThermalReader, WhenReadFilteredTemperatureIsCalled_VerifyThatMethodIsCa
 
 
 }
+
+// User Story 3.3: Validate ReadFilteredTemp() with Multiple and Repeated Returns
+TEST_F(UtThermalReader, WhenReadFilteredTemperatureIsCalled_VerifyThatMethodIsCalledMultipleTimes)
+{
+
+    MockFilter mock_filter_;
+
+    EXPECT_CALL(mock_filter_, FilterData()).Times(3).WillOnce(testing::Return(kDefaultValueForTemperature));
+
+    ThermalReader temperature_reader_(mock_filter_);
+    auto return_value = temperature_reader_.ReadFilteredTemperature();
+    auto return_value1 = temperature_reader_.ReadFilteredTemperature();
+    auto return_value2 = temperature_reader_.ReadFilteredTemperature();
+
+    EXPECT_EQ(return_value, kDefaultValueForTemperature);
+
+
+}
+
+// User Story 3.3: Validate ReadFilteredTemp() with Multiple and Repeated Returns
+TEST_F(UtThermalReader, WhenReadFilteredTemperatureIsCalled_VerifyThatMethodHasRepeatedReturns)
+{
+
+    MockFilter mock_filter_;
+
+    EXPECT_CALL(mock_filter_, FilterData()).Times(3).WillRepeatedly(testing::Return(kDefaultValueForTemperature));
+
+    ThermalReader temperature_reader_(mock_filter_);
+    auto return_value = temperature_reader_.ReadFilteredTemperature();
+    auto return_value1 = temperature_reader_.ReadFilteredTemperature();
+    auto return_value2 = temperature_reader_.ReadFilteredTemperature();
+
+
+    EXPECT_EQ(return_value, kDefaultValueForTemperature);
+    EXPECT_EQ(return_value1, kDefaultValueForTemperature);
+    EXPECT_EQ(return_value2, kDefaultValueForTemperature);
+
+
+
+}
