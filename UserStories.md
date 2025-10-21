@@ -107,4 +107,61 @@ I want to have all the latest and greates temperature values,
 - **When** temperature changes,  
 - **Then** the average value changes accordingly.
 
+### **User Story 3.1: Implement MockFilter for ThermalReader Testing**
+
+**As a developer writing tests for ThermalReader,**  
+I want to create a mock version of the Filter class (MockFilter),
+**So that** I can simulate and control FilterData() behavior for testing ThermalReader without relying on real filtering logic.
+
+**Scenario:**
+
+- **Given** that the Filter class contains a FilterData() method,
+- **And** the MOCKABLE macro is applied to make it virtual when MOCK_ENABLE is defined,
+- **When** the code is compiled with MOCK_ENABLE defined,
+- **Then** the FilterData() method should be virtual,
+- **And** test code should be able to override it using GoogleMock.
+
+
+### **User Story 3.2: Apply GoogleMock for Controlled Testing**
+
+**As a developer running tests for ThermalReader,**  
+I want to understand and apply GoogleMock (gMock) to define, control, and verify mock behavior,
+**So that** I can effectively simulate dependencies and validate object interactions in tests.
+
+**Scenario1: Define mock methods using gMock**
+
+- **Given** a mock class inherits from a base dependency,
+- **When** declare a mock method using the MOCK_METHOD macro,
+- **Then** the mock method should compile successfully,
+- **And** it should be usable in tests to simulate different return values.
+
+**Scenario2: Control defualt mock behaviour**
+
+- **Given** a mock object is created in a test,
+- **When** I apply ON_CALL(mockObject, MethodName(matchers)).WillByDefault(Return(value)),
+- **Then** the method should return the specified default value,
+- **And** allow tests to proceed without explicit expectations.
+
+### **User Story 3.3: Validate ReadFilteredTemp() Using MockFilter**
+
+**As a developer verifying the ThermalReader component,**  
+I want to use MockFilter to simulate FilterData() outputs,
+**So that** I can confirm ReadFilteredTemp() processes temperature data correctly under different filter behaviors.
+
+**Scenario1: ReadFilteredTemp() returns mock-defined value**
+
+- **Given** a MockFilter instance is injected into ThermalReader
+- **And** ON_CALL(mockFilter, FilterData()).WillByDefault(Return(N));
+- **When** ReadFilteredTemp() is invoked
+- **Then** it should return N
+- **And** no actual filtering logic from the real Filter class should execute.
+
+**Scenario2: Validate multiple expected outputs**
+
+- **Given** EXPECT_CALL(mockFilter, FilterData())
+  .WillOnce(Return(X)).WillOnce(Return(Y)),
+- **When** ReadFilteredTemp() is called twice,
+- **Then** the first call should return X,
+- **And** the second call should return Y.
+
 ---
