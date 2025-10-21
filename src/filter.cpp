@@ -14,7 +14,7 @@ bool Filter::UpdateFilterData(int newValue)
     return true;
 }
 
-int Filter::FilterData()
+int Filter::FilterData() const
 {
     int sum = 0;
     for (int value : buffer_)

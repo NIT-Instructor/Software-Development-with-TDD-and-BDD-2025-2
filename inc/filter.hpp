@@ -5,7 +5,7 @@
 
 #include "common.hpp"
 
-constexpr uint8_t kBufferSize = 9;
+constexpr std::size_t kBufferSize = 9;
 
 class Filter
 {
@@ -14,7 +14,7 @@ class Filter
     virtual ~Filter();
 
     bool UpdateFilterData(int new_value);
-    MOCKABLE int FilterData();
+    MOCKABLE int FilterData() const;
 
     PRIVATE : std::array<uint8_t, kBufferSize> buffer_;
     int                                        head_;

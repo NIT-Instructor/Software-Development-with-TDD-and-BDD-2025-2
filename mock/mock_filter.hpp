@@ -7,6 +7,6 @@ class MockFilter : public Filter
 {
 public:
     MockFilter() = default;
-    MOCK_METHOD(int, FilterData, (), (override));
+    MOCK_METHOD(int, FilterData, (), (const, override));
 };
 
