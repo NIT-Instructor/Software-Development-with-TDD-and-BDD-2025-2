@@ -61,3 +61,22 @@ TEST_F(UtThermalReader, WhenReadFilteredTemperatureIsCalledSequentially_ThenMock
     EXPECT_EQ(return_value2, 12);
     EXPECT_EQ(return_value3, 18);
 }
+
+// User Story 3.4: Validate ReadFilteredTemp() Behavior with MockFilter
+
+TEST_F(UtThermalReader, WhenReadFilteredTemperatureReturnsMultipleNegativeValues_ThenItShouldMatchEachMockedResult)
+{
+    EXPECT_CALL(mockFilter_, FilterData())
+        .Times(3)
+        .WillOnce(::testing::Return(-3))
+        .WillOnce(::testing::Return(-12))
+        .WillOnce(::testing::Return(-45));
+
+    auto return_value1 = temperatureReader_->ReadFilteredTemperature();
+    auto return_value2 = temperatureReader_->ReadFilteredTemperature();
+    auto return_value3 = temperatureReader_->ReadFilteredTemperature();
+
+    EXPECT_EQ(return_value1, -3);
+    EXPECT_EQ(return_value2, -12);
+    EXPECT_EQ(return_value3, -45);
+}
