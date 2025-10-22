@@ -1,3 +1,11 @@
 #pragma once
 
-int read_raw_temp();
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+int read_raw_temp(void);
+
+#ifdef __cplusplus
+}
+#endif

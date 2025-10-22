@@ -5,9 +5,6 @@ int temp = 1;
 int read_raw_temp(void)
 
 {
-
-temp = temp + 1;
-
-return temp;
-
+    temp = temp + 1;
+    return temp;
 }
