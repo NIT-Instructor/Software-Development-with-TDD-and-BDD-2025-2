@@ -5,6 +5,13 @@ Filter::Filter() : buffer_{0}, head_{-1}
 {
 }
 
+// BUG - update only first value in buffer
+// bool Filter::UpdateFilterData(int newValue)
+// {
+//     buffer_[0] = newValue;
+//     return true;
+// }
+
 bool Filter::UpdateFilterData(int newValue)
 {
     head_          = (head_ + 1) % kBufferSize;
