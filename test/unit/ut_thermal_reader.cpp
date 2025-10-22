@@ -8,9 +8,11 @@ UtThermalReader::UtThermalReader()
 void UtThermalReader::TearDown()
 {
     std::cout << "TearDown" << std::endl;
+    delete temperatureReader_;
 }
 
 void UtThermalReader::SetUp()
 {
     std::cout << "SetUp" << std::endl;
+    temperatureReader_ = new ThermalReader(mockFilter_);
 }
