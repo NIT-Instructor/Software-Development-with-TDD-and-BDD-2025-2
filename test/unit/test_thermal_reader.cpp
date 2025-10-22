@@ -8,7 +8,7 @@ constexpr int kRawTemperatureStubValue = 42;
 
 TEST_F(UtThermalReader, WhenReadFilteredTemperatureIsCalled_ThenItShouldReturnMockValue33)
 {
-   ON_CALL(mockFilter_, FilterData()).WillByDefault(testing::Return(kDefaultValueForTemperature));
+    ON_CALL(mockFilter_, FilterData()).WillByDefault(testing::Return(kDefaultValueForTemperature));
 
     auto return_value = temperatureReader_->ReadFilteredTemperature();
     EXPECT_EQ(return_value, kDefaultValueForTemperature);
@@ -21,4 +21,43 @@ TEST_F(UtThermalReader, WhenReadReadFilteredTemperatureIsCalledThreeTImes_ThenMo
     temperatureReader_->ReadFilteredTemperature();
     temperatureReader_->ReadFilteredTemperature();
     temperatureReader_->ReadFilteredTemperature();
+}
+
+// User Story 3.3: Validate ThermalSensor Interaction Using MockFilter
+
+TEST_F(UtThermalReader, WhenReadFilteredTemperatureIsInvoked_ThenMockFilterShouldReturnThePresetStubValue)
+{
+    EXPECT_CALL(mockFilter_, FilterData()).WillOnce(::testing::Return(kRawTemperatureStubValue));
+    auto return_value = temperatureReader_->ReadFilteredTemperature();
+    EXPECT_EQ(return_value, kRawTemperatureStubValue);
+}
+
+TEST_F(UtThermalReader, WhenReadFilteredTemperatureIsCalledMultipleTimes_ThenMockFilterShouldReturnTheSameStubValueEachTime)
+{
+    EXPECT_CALL(mockFilter_, FilterData()).Times(3).WillRepeatedly(::testing::Return(kRawTemperatureStubValue));
+
+    auto return_value1 = temperatureReader_->ReadFilteredTemperature();
+    auto return_value2 = temperatureReader_->ReadFilteredTemperature();
+    auto return_value3 = temperatureReader_->ReadFilteredTemperature();
+
+    EXPECT_EQ(return_value1, kRawTemperatureStubValue);
+    EXPECT_EQ(return_value2, kRawTemperatureStubValue);
+    EXPECT_EQ(return_value3, kRawTemperatureStubValue);
+}
+
+TEST_F(UtThermalReader, WhenReadFilteredTemperatureIsCalledSequentially_ThenMockFilterShouldReturnDifferentStubValuesOnEachInvocation)
+{
+    EXPECT_CALL(mockFilter_, FilterData())
+        .Times(3)
+        .WillOnce(::testing::Return(6))
+        .WillOnce(::testing::Return(12))
+        .WillOnce(::testing::Return(18));
+
+    auto return_value1 = temperatureReader_->ReadFilteredTemperature();
+    auto return_value2 = temperatureReader_->ReadFilteredTemperature();
+    auto return_value3 = temperatureReader_->ReadFilteredTemperature();
+
+    EXPECT_EQ(return_value1, 6);
+    EXPECT_EQ(return_value2, 12);
+    EXPECT_EQ(return_value3, 18);
 }
