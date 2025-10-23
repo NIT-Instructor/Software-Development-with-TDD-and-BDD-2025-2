@@ -121,7 +121,6 @@ I want to create a mock version of the Filter class (MockFilter),
 - **Then** the FilterData() method should be virtual,
 - **And** test code should be able to override it using GoogleMock.
 
-
 ### **User Story 3.2: Apply GoogleMock for Controlled Testing**
 
 **As a developer running tests for ThermalReader,**  
@@ -157,8 +156,36 @@ I want to configure MockFilter to return different values on successive and repe
 - **When** ReadFilteredTemperature() is called more than twice
 - **Then** the third and all subsequent calls should return Z 
 
+Exercise 4: Testing classes by using adapter
 
----
+## **Exercise 4: GTest and GMock in Action**
+
+### User Story 4.1: ThermalReader Isolates Hardware Dependency for Testing via Adapter
+
+**As a Hardware Monitor,**
+I want to get a raw sensor data,
+**So that** can update filtered data.
+
+**Scenario 1:** ThermalReader updates filtered data successfully
+
+- **Given** ThermalReader is connected to temperature sensor
+- **When** hardware monitor request update for filtered data
+- **Then** ThermalReader get temperature from sensor
+- **And** updates filtered data with new temperature
+
+**Scenario 2:** ThermalReader shouldn't update filtered data if current temperature is higher than limit
+
+- **Given** ThermalReader is connected to temperature sensor
+- **And** hardware monitor request update for filtered data
+- **When** ThermalReader get temperature from sensor higher than limit
+- **Then** ThermalReader shouldn't update filtered data
+
+**Scenario 3:** ThermalReader shouldn't update filtered data if current temperature is lower than limit
+
+- **Given** ThermalReader is connected to temperature sensor
+- **And** hardware monitor request update for filtered data
+- **When** ThermalReader get temperature from sensor lower than limit
+- **Then** ThermalReader shouldn't update filtered data
 
 ## **Exercise 6: Hardware Monitor System**
 
