@@ -9,7 +9,7 @@ class MockRawTempFacade : public RawTempFacade
     MockRawTempFacade()  = default;
     ~MockRawTempFacade() = default;
 
-    MOCK_METHOD(int, ReadRawTemp, (), (override));
+    MOCK_METHOD(int, ReadRawTemp, (), (const, override));
 };  
 
 

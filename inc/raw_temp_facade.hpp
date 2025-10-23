@@ -4,6 +4,6 @@
 // Adapter class for interfacing with C library function
 class RawTempFacade {
 public:
-    MOCKABLE int ReadRawTemp();
+    MOCKABLE int ReadRawTemp() const;
     MOCKABLE ~RawTempFacade() = default;
 };
