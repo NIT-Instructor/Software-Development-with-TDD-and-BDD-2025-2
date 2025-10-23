@@ -108,3 +108,17 @@ I want to have all the latest and greates temperature values,
 - **Then** the average value changes accordingly.
 
 ---
+
+## **Exercise 4: GTest and GMock in Action**
+
+User Story 4.1: Simulated External C Library for Temperature Input
+
+**As a developer,**  
+I want to implement a lightweight external C module that generates artificial temperature data,
+**So that** I can verify the system’s temperature-handling logic without requiring physical sensor hardware.
+
+**Scenario:**
+
+- **Given** that the real system would normally read temperature values from an actual hardware sensor,
+- **When** the application runs in a test or simulation environment,
+- **Then** it should rely on a mock C library that emulates sensor behavior by returning progressively higher temperature values with each function call.
