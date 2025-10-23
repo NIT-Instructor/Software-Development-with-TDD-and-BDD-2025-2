@@ -13,6 +13,6 @@ class MockThermalReader : public ThermalReader
     {
     }
 
-    MOCK_METHOD(int, ReadFilteredTemperature, (), (override));
-    MOCK_METHOD(bool, UpdateCurrentTemp, (), (override));
+    MOCK_METHOD(int, ReadFilteredTemperature, ());
+    MOCK_METHOD(bool, UpdateCurrentTemp, ());
 };

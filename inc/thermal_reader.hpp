@@ -7,12 +7,12 @@
 class ThermalReader
 {
   public:
-    ThermalReader(Filter& filter);
+    ThermalReader(Filter& filter, RawTempFacade& raw_temp_facade);
 
     MOCKABLE int  ReadFilteredTemperature();
     MOCKABLE bool UpdateCurrentTemp();
 
   PRIVATE : 
     Filter& filter_;
-
+    RawTempFacade& raw_temp_facade_;
 };

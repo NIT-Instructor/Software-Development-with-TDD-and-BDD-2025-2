@@ -36,8 +36,36 @@ TEST_F(UtThermalReader, WhenUpdateCurrentTempOccurs_ThenUpdateFilterDataIsCalled
 // Students should use GoogleMock to mock the dependencies and validate that the interaction occurs as expected.
 TEST_F(UtThermalReader, UpdateCurrentTemp_CorrectlyProcessesTemperatureData)
 {
-    // Students need to set up ON_CALL and EXPECT_CALL for the mocked dependencies
-    // that simulate the interactions for processing temperature data.
+    EXPECT_CALL(mock_raw_temp_facade_, ReadRawTemp()).Times(1).WillOnce(testing::Return(kRawTemperatureStubValue));
+    EXPECT_CALL(mock_filter_, UpdateFilterData(kRawTemperatureStubValue)).Times(1).WillOnce(testing::Return(true));
 
-    // Students should ensure the result is verified after the method call
+    bool res = temperature_reader_.UpdateCurrentTemp();
+
+    EXPECT_TRUE(res);
+}
+
+TEST_F(UtThermalReader, UpdateCurrentTemp_ReturnsFalseWhenFilterUpdateFails)
+{
+    EXPECT_CALL(mock_raw_temp_facade_, ReadRawTemp()).Times(1).WillOnce(::testing::Return(kRawTemperatureStubValue));
+    EXPECT_CALL(mock_filter_, UpdateFilterData(kRawTemperatureStubValue)).Times(1).WillOnce(::testing::Return(false));
+ 
+    bool res = temperature_reader_.UpdateCurrentTemp();
+    EXPECT_FALSE(res);
+}
+ 
+TEST_F(UtThermalReader, UpdateCurrentTemp_ForwardsNegativeRawValue)
+{
+    constexpr int kNegRaw = -20;
+    EXPECT_CALL(mock_raw_temp_facade_, ReadRawTemp()).Times(1).WillOnce(::testing::Return(kNegRaw));
+    EXPECT_CALL(mock_filter_, UpdateFilterData(kNegRaw)).Times(1).WillOnce(::testing::Return(true));
+ 
+    bool res = temperature_reader_.UpdateCurrentTemp();
+    EXPECT_TRUE(res);
+}
+ 
+TEST_F(UtThermalReader, MockRawFacade_ReadRawTemp_ReturnsStubbedValue)
+{
+    EXPECT_CALL(mock_raw_temp_facade_, ReadRawTemp()).Times(1).WillOnce(::testing::Return(123));
+    int raw = mock_raw_temp_facade_.ReadRawTemp();
+    EXPECT_EQ(raw, 123);
 }

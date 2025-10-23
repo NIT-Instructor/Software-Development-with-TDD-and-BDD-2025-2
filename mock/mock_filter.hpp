@@ -9,6 +9,6 @@ class MockFilter : public Filter
     MockFilter()  = default;
     ~MockFilter() = default;
 
-    MOCK_METHOD(int, FilterData, (), (override));
-    MOCK_METHOD(bool, UpdateFilterData, (int), (override));
+    MOCK_METHOD(int, FilterData, ());
+    MOCK_METHOD(bool, UpdateFilterData, (int));
 };
