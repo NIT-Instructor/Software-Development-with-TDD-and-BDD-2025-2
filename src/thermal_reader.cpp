@@ -5,7 +5,7 @@ ThermalReader::ThermalReader(Filter& filter, RawTempFacade& raw_temp_facade)
 {
 }
 
-int ThermalReader::ReadFilteredTemperature()
+int ThermalReader::ReadFilteredTemperature() const
 {
     return filter_.FilterData();
 }
