@@ -4,14 +4,16 @@
 #include <gtest/gtest.h>
 
 #include "mock_filter.hpp"
+#include "mock_raw_temp_facade.hpp"
 #include "thermal_reader.hpp"
 
 class UtThermalReader : public ::testing::Test
 {
   public:
-    UtThermalReader();  // Constructor where dependencies will be injected
+    UtThermalReader();
 
   protected:
-    ::testing::NiceMock<MockFilter> mock_filter_;   // Mock for Filter
-    ThermalReader                    temperature_reader_;  // Instance of ThermalReader with DI
+    ::testing::NiceMock<MockFilter> mock_filter_;
+    ::testing::NiceMock<MockRawTempFacade> mock_raw_temp_facade_;
+    ThermalReader                    temperature_reader_;
 };
