@@ -1,6 +1,7 @@
 set(TARGETLIB "TemperatureMonitor")
 
 set(LIB_SOURCE_FILES 
+    external_c_lib.c
     thermal_reader.cpp
     filter.cpp
     temperature_utils.cpp
