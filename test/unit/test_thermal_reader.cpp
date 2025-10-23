@@ -43,3 +43,29 @@ TEST_F(UtThermalReader, UpdateCurrentTemp_CorrectlyProcessesTemperatureData)
 
     EXPECT_TRUE(res);
 }
+
+TEST_F(UtThermalReader, UpdateCurrentTemp_ReturnsFalseWhenFilterUpdateFails)
+{
+    EXPECT_CALL(mock_raw_temp_facade_, ReadRawTemp()).Times(1).WillOnce(::testing::Return(kRawTemperatureStubValue));
+    EXPECT_CALL(mock_filter_, UpdateFilterData(kRawTemperatureStubValue)).Times(1).WillOnce(::testing::Return(false));
+ 
+    bool res = temperature_reader_.UpdateCurrentTemp();
+    EXPECT_FALSE(res);
+}
+ 
+TEST_F(UtThermalReader, UpdateCurrentTemp_ForwardsNegativeRawValue)
+{
+    constexpr int kNegRaw = -20;
+    EXPECT_CALL(mock_raw_temp_facade_, ReadRawTemp()).Times(1).WillOnce(::testing::Return(kNegRaw));
+    EXPECT_CALL(mock_filter_, UpdateFilterData(kNegRaw)).Times(1).WillOnce(::testing::Return(true));
+ 
+    bool res = temperature_reader_.UpdateCurrentTemp();
+    EXPECT_TRUE(res);
+}
+ 
+TEST_F(UtThermalReader, MockRawFacade_ReadRawTemp_ReturnsStubbedValue)
+{
+    EXPECT_CALL(mock_raw_temp_facade_, ReadRawTemp()).Times(1).WillOnce(::testing::Return(123));
+    int raw = mock_raw_temp_facade_.ReadRawTemp();
+    EXPECT_EQ(raw, 123);
+}
