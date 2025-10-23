@@ -12,8 +12,8 @@ class Filter
   public:
     Filter();
 
-    bool UpdateFilterData(int new_value);
-    MOCKABLE int FilterData();
+    MOCKABLE bool UpdateFilterData(int new_value);
+    MOCKABLE int  FilterData();
 
     PRIVATE : std::array<uint8_t, kBufferSize> buffer_;
     int                                        head_;

@@ -12,7 +12,7 @@ EX_NUM="$1"
 git checkout main || exit 1
 git pull origin main || exit 1
 
-for NAME in kent fowler farely deming; do
+for NAME in kent fowler farley deming; do
     BRANCH="${NAME}_exercise_${EX_NUM}"
     # Make sure branch exists locally
     if git show-ref --quiet refs/heads/"$BRANCH"; then

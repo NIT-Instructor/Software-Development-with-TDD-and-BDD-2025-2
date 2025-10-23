@@ -2,14 +2,17 @@
 
 #include "common.hpp"
 #include "filter.hpp"
+#include "raw_temp_facade.hpp"
 
 class ThermalReader
 {
-public:
-  ThermalReader(Filter &filter);
+  public:
+    ThermalReader(Filter& filter, RawTempFacade& raw_temp_facade);
 
-  int ReadFilteredTemperature();
-  bool UpdateCurrentTemp();
+    MOCKABLE int  ReadFilteredTemperature();
+    MOCKABLE bool UpdateCurrentTemp();
 
-  PRIVATE : Filter &filter_;
+  PRIVATE : 
+    Filter& filter_;
+    RawTempFacade&    raw_temp_facade_;
 };

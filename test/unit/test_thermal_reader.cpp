@@ -1,78 +1,42 @@
 #include "gtest/gtest.h"
 #include "ut_thermal_reader.hpp"
-#include "../../inc/mock_filter.hpp"
-#include "../../inc/thermal_reader.hpp"
-#include <gmock/gmock.h>
-
 
 constexpr int kDefaultValueForTemperature = 33;
 constexpr int kRawTemperatureStubValue = 42;
 
 // User Story 3.1: Inject Mock Filter into ThermalReader
-TEST_F(UtThermalReader, WhenReadFilteredTemperatureIsCalled_ThenItShouldReturnMockValue33)
+TEST_F(UtThermalReader, WhenReadFilteredTemperatureIsCalled_ThenItShouldReturnValueFromFilterData)
 {
-
-    MockFilter mock_filter_;
     ON_CALL(mock_filter_, FilterData()).WillByDefault(testing::Return(kDefaultValueForTemperature));
 
-
-    ThermalReader temperature_reader_(mock_filter_);
     auto return_value = temperature_reader_.ReadFilteredTemperature();
     EXPECT_EQ(return_value, kDefaultValueForTemperature);
 }
 
-// User Story 3.2: Apply GoogleMock for Controlled Testing
-TEST_F(UtThermalReader, WhenReadFilteredTemperatureIsCalled_VerifyThatMethodIsCalledAsExpected)
+// User Story 3.2: Simulate Filter Failure in ThermalReader
+TEST_F(UtThermalReader, WhenFilterFailureOccures_ThenThermalReaderShouldHandleErrorGracefully)
 {
+    ON_CALL(mock_filter_, FilterData()).WillByDefault(testing::Return(-1));
 
-    MockFilter mock_filter_;
-
-    EXPECT_CALL(mock_filter_, FilterData()).Times(1).WillOnce(testing::Return(kDefaultValueForTemperature));
-
-    ThermalReader temperature_reader_(mock_filter_);
-    auto return_value = temperature_reader_.ReadFilteredTemperature();
-
-    EXPECT_EQ(return_value, kDefaultValueForTemperature);
-
-
+    auto result = temperature_reader_.ReadFilteredTemperature();
+    EXPECT_EQ(result, -1);
 }
 
-// User Story 3.3: Validate ReadFilteredTemp() with Multiple and Repeated Returns
-TEST_F(UtThermalReader, WhenReadFilteredTemperatureIsCalled_VerifyThatMethodIsCalledMultipleTimes)
+// User Story 3.3: Verify Dependency Injection in ThermalReader
+TEST_F(UtThermalReader, WhenUpdateCurrentTempOccurs_ThenUpdateFilterDataIsCalledWithReadRawTempValue)
 {
+    EXPECT_CALL(mock_filter_, UpdateFilterData(0)).WillOnce(testing::Return(true));
 
-    MockFilter mock_filter_;
-
-    EXPECT_CALL(mock_filter_, FilterData()).Times(3).WillOnce(testing::Return(kDefaultValueForTemperature));
-
-    ThermalReader temperature_reader_(mock_filter_);
-    auto return_value = temperature_reader_.ReadFilteredTemperature();
-    auto return_value1 = temperature_reader_.ReadFilteredTemperature();
-    auto return_value2 = temperature_reader_.ReadFilteredTemperature();
-
-    EXPECT_EQ(return_value, kDefaultValueForTemperature);
-
-
+    auto result = temperature_reader_.UpdateCurrentTemp();
+    EXPECT_TRUE(result);
 }
 
-// User Story 3.3: Validate ReadFilteredTemp() with Multiple and Repeated Returns
-TEST_F(UtThermalReader, WhenReadFilteredTemperatureIsCalled_VerifyThatMethodHasRepeatedReturns)
+// User Story 4.1: Verify UpdateCurrentTemp Interaction with Filter and RawTempFacade
+TEST_F(UtThermalReader, WhenUpdateCurrentTempOccurs_ThenTemperatureDataIsProcessed)
 {
+    ON_CALL(mock_raw_temp_facade_, ReadRawTemp(testing::_)).WillByDefault(testing::Return(kRawTemperatureStubValue));
+    EXPECT_CALL(mock_filter_, UpdateFilterData(kRawTemperatureStubValue)).WillOnce(testing::Return(true));
 
-    MockFilter mock_filter_;
-
-    EXPECT_CALL(mock_filter_, FilterData()).Times(3).WillRepeatedly(testing::Return(kDefaultValueForTemperature));
-
-    ThermalReader temperature_reader_(mock_filter_);
-    auto return_value = temperature_reader_.ReadFilteredTemperature();
-    auto return_value1 = temperature_reader_.ReadFilteredTemperature();
-    auto return_value2 = temperature_reader_.ReadFilteredTemperature();
-
-
-    EXPECT_EQ(return_value, kDefaultValueForTemperature);
-    EXPECT_EQ(return_value1, kDefaultValueForTemperature);
-    EXPECT_EQ(return_value2, kDefaultValueForTemperature);
-
-
-
+    auto result = temperature_reader_.UpdateCurrentTemp();
+    EXPECT_TRUE(result);
 }

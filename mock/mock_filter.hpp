@@ -5,7 +5,10 @@
 
 class MockFilter : public Filter
 {
+  public:
+    MockFilter()  = default;
+    ~MockFilter() = default;
 
-  // Mock FilterData and UpdateFilterData
-  // MOCK_METHOD(<return type>, <MethodName>, (input type), (override));
+    MOCK_METHOD(int, FilterData, (), (override));
+    MOCK_METHOD(bool, UpdateFilterData, (int), (override));
 };

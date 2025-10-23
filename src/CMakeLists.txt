@@ -3,7 +3,8 @@ set(TARGETLIB "TemperatureMonitor")
 set(LIB_SOURCE_FILES 
     thermal_reader.cpp
     filter.cpp
-    temperature_utils.cpp)
+    temperature_utils.cpp
+    raw_temp_facade.cpp)
 
 set(ADDITIONAL_INCLUDE_DIRS ../inc)
 
