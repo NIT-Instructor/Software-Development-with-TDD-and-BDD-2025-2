@@ -6,3 +6,12 @@
 // Students should create a mock class for RawTempFacade.
 // This class should mock the ReadRawTemp method using GoogleMock.
 
+class MockRawTempFacade : public RawTempFacade
+{
+  public:
+    MockRawTempFacade()  = default;
+    ~MockRawTempFacade() = default;
+
+    MOCK_METHOD(int, ReadRawTemp, (), (override));
+};
+
