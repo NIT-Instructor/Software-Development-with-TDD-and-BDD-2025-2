@@ -116,13 +116,9 @@ So that I can test system behavior without hardware dependency
 **Scenario 1:**
 
 - **Given** the C library is initialized,  
-- **When**  read_raw_temp() is called the first time,  
-- **Then**  it should return 2.
+- **When**  the application is in a test environment,  
+- **Then**  it should use the C mock library that mimics reading a sensor and returns a progression of temperature value.
 
-**Scenario 2:**
-- **Given** read_raw_temp() has been called N times,
-- **When**  it is called again,
-- **Then**  it should return the previous value + 1.
 
 ### **User Story 4.2: Introduce Adapter for Raw Temperature Reading**
 

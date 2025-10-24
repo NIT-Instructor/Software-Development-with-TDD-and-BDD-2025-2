@@ -36,6 +36,14 @@ TEST_F(UtThermalReader, WhenUpdateCurrentTempOccurs_ThenUpdateFilterDataIsCalled
 // Students should use GoogleMock to mock the dependencies and validate that the interaction occurs as expected.
 TEST_F(UtThermalReader, UpdateCurrentTemp_CorrectlyProcessesTemperatureData)
 {
+    ON_CALL(raw_temp_facade, ReadRawTemp()).WillByDefault(testing::Return(kRawTemperatureStubValue));
+    EXPECT_CALL(mock_filter_, UpdateFilterData(kRawTemperatureStubValue)).WillOnce(testing::Return(true));
+
+    auto result = temperature_reader_.UpdateCurrentTemp();
+    EXPECT_TRUE(result);
+
+
+
     // Students need to set up ON_CALL and EXPECT_CALL for the mocked dependencies
     // that simulate the interactions for processing temperature data.
 
