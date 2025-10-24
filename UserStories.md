@@ -107,4 +107,38 @@ I want to have all the latest and greates temperature values,
 - **When** temperature changes,  
 - **Then** the average value changes accordingly.
 
+### **User Story 4.1: Create External C Library for Temperature Simulation**
+
+**As a developer**,
+I want a simulated C library that mimics reading a temperature sensor,
+So that I can test system behavior without hardware dependency
+
+**Scenario 1:**
+
+- **Given** the C library is initialized,  
+- **When**  read_raw_temp() is called the first time,  
+- **Then**  it should return 2.
+
+**Scenario 2:**
+- **Given** read_raw_temp() has been called N times,
+- **When**  it is called again,
+- **Then**  it should return the previous value + 1.
+
+### **User Story 4.2: Introduce Adapter for Raw Temperature Reading**
+
+**As a developer**,
+I want to isolate hardware access through a RawTempFacade adapter,
+So that I can mock temperature readings during tests.
+
+**Scenario 1:**
+- **Given** a mock RawTempFacade returning 42,
+- **When**  UpdateCurrentTemp() is invoked,
+- **Then**  Filter::UpdateFilterData() should be called with 42.
+
+**Scenario 2:**
+- **Given** a test context,
+- **When**  a mock RawTempFacade is injected into ThermalReader,
+- **Then**  the real C library is not called.
+
+
 ---
