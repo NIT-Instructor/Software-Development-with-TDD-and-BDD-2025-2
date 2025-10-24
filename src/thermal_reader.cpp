@@ -12,7 +12,15 @@ int ThermalReader::ReadFilteredTemperature() const
 
 bool ThermalReader::UpdateCurrentTemp()
 {
+    constexpr int kMinThreshold = -30;
+    constexpr int kMaxThreshold = 60;
+
     int raw_temp = raw_temp_facade_.ReadRawTemp();
-          
+
+    // Only update filter if temperature is within valid range
+    if (raw_temp < kMinThreshold || raw_temp > kMaxThreshold) {
+        return false;
+    }
+
     return filter_.UpdateFilterData(raw_temp);
 }

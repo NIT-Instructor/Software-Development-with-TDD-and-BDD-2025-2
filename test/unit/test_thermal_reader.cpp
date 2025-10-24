@@ -126,3 +126,33 @@ TEST_F(UtThermalReader, WhenHardwareRequestsCurrentTemperature_ReturnsMostRecent
     EXPECT_EQ(temperature_reader_.ReadFilteredTemperature(), 25);
     EXPECT_EQ(temperature_reader_.ReadFilteredTemperature(), 35);
 }
+
+// User Story 4.1 - Scenario 1: ThermalReader updates filtered data successfully
+TEST_F(UtThermalReader, WhenTemperatureIsWithinLimits_ThenFilterDataShouldBeUpdated)
+{
+    constexpr int kValidTemperature = 25;
+    ON_CALL(mock_raw_temp_facade_, ReadRawTemp()).WillByDefault(testing::Return(kValidTemperature));
+    EXPECT_CALL(mock_filter_, UpdateFilterData(kValidTemperature)).WillOnce(testing::Return(true));
+    auto result = temperature_reader_.UpdateCurrentTemp();
+    EXPECT_TRUE(result);
+}
+
+// User Story 4.1 - Scenario 2: ThermalReader shouldn't update filtered data if current temperature is higher than limit
+TEST_F(UtThermalReader, WhenTemperatureIsHigherThanLimit_ThenFilterDataShouldNotBeUpdated)
+{
+    constexpr int kTempAboveLimit = 70;
+    ON_CALL(mock_raw_temp_facade_, ReadRawTemp()).WillByDefault(testing::Return(kTempAboveLimit));
+    EXPECT_CALL(mock_filter_, UpdateFilterData(kTempAboveLimit)).Times(0);
+    auto result = temperature_reader_.UpdateCurrentTemp();
+    EXPECT_FALSE(result);
+}
+
+// User Story 4.1 - Scenario 3: ThermalReader shouldn't update filtered data if current temperature is lower than limit
+TEST_F(UtThermalReader, WhenTemperatureIsLowerThanLimit_ThenFilterDataShouldNotBeUpdated)
+{
+    constexpr int kTempBelowLimit = -50;
+    ON_CALL(mock_raw_temp_facade_, ReadRawTemp()).WillByDefault(testing::Return(kTempBelowLimit));
+    EXPECT_CALL(mock_filter_, UpdateFilterData(kTempBelowLimit)).Times(0);
+    auto result = temperature_reader_.UpdateCurrentTemp();
+    EXPECT_FALSE(result);
+}
