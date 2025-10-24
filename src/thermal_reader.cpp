@@ -1,7 +1,7 @@
 #include "thermal_reader.hpp"
 
-ThermalReader::ThermalReader(Filter& filter)
-    : filter_(filter)
+ThermalReader::ThermalReader(Filter& filter, RawTempFacade& rawTempFacade)
+    : filter_(filter), rawTempFacade_(rawTempFacade)
 {
     // Students need to add Dependency Injection for RawTempFacade.
     // This will allow ThermalReader to use an instance of RawTempFacade
@@ -19,6 +19,8 @@ bool ThermalReader::UpdateCurrentTemp()
     
     // Students need to use the injected RawTempFacade instance to
     // get the raw temperature from the C function.
+    
+    raw_temp = rawTempFacade_.ReadRawTemp();
     
     // Once raw_temp is fetched from the C library, it should be passed
     // to the filter to update the filtered data.

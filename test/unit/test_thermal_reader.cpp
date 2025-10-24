@@ -39,5 +39,11 @@ TEST_F(UtThermalReader, UpdateCurrentTemp_CorrectlyProcessesTemperatureData)
     // Students need to set up ON_CALL and EXPECT_CALL for the mocked dependencies
     // that simulate the interactions for processing temperature data.
 
+    ON_CALL(mock_raw_temp_facade_, ReadRawTemp()).WillByDefault(testing::Return(kRawTemperatureStubValue));
+    EXPECT_CALL(mock_filter_, UpdateFilterData(kRawTemperatureStubValue)).WillOnce(testing::Return(true));
+    
+    auto result = temperature_reader_.UpdateCurrentTemp();
+    EXPECT_TRUE(result);
+
     // Students should ensure the result is verified after the method call
 }

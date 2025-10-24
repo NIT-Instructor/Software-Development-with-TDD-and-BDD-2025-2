@@ -108,3 +108,40 @@ I want to have all the latest and greates temperature values,
 - **Then** the average value changes accordingly.
 
 ---
+
+## **Exercise 4: GTest and GMock in Action**
+
+User Story 4.1: Simulated External C Library for Temperature Input
+
+**As a developer,**  
+I want to implement a lightweight external C module that generates artificial temperature data,
+**So that** I can verify the system’s temperature-handling logic without requiring physical sensor hardware.
+
+**Scenario:**
+
+- **Given** that the real system would normally read temperature values from an actual hardware sensor,
+- **When** the application runs in a test or simulation environment,
+- **Then** it should rely on a mock C library that emulates sensor behavior by returning progressively higher temperature values with each function call.
+
+### **User Story 4.2 – Verifying ThermalReader Integration through Mocked Dependencies**
+
+**As a developer,**   
+I want to structure the `ThermalReader` class to communicate with its dependencies through an adapter and mock interfaces,  
+**So that** I can confirm and test proper data flow between components without relying on the actual C library or sensor hardware.
+
+#### **Scenario 1 – Using an Adapter for the C Library**
+
+- **Given** that the function `read_raw_temp()` from the C library cannot be mocked directly in C++,  
+- **When** a `RawTempFacade` adapter encapsulates this function,  
+- **Then** `ThermalReader` should access temperature data through the adapter,  
+- **And** the adapter must allow mock substitution during testing.
+
+#### **Scenario 2 – Testing UpdateCurrentTemp() Behavior**
+
+- **Given** that `ThermalReader` interacts with `RawTempFacade` and `Filter` via dependency injection,  
+- **When** testing `UpdateCurrentTemp()`,  
+- **Then** use `ON_CALL` to simulate a temperature value returned by `ReadRawTemp()`,  
+- **And** `EXPECT_CALL` to confirm that `UpdateFilterData()` receives that same value,  
+- **Finally**, verify that the method properly handles data flow between the components without relying on the real C library.
+
+---
