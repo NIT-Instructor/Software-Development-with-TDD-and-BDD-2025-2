@@ -107,4 +107,55 @@ I want to have all the latest and greates temperature values,
 - **When** temperature changes,  
 - **Then** the average value changes accordingly.
 
+### **User Story 3.1: Implement MockFilter for ThermalReader Testing**
+
+**As a developer writing tests for ThermalReader,**  
+I want to create a mock version of the Filter class (MockFilter),
+**So that** I can simulate and control FilterData() behavior for testing ThermalReader without relying on real filtering logic.
+
+**Scenario:**
+
+- **Given** that the Filter class contains a FilterData() method,
+- **And** the MOCKABLE macro is applied to make it virtual when MOCK_ENABLE is defined,
+- **When** the code is compiled with MOCK_ENABLE defined,
+- **Then** the FilterData() method should be virtual,
+- **And** test code should be able to override it using GoogleMock.
+
+
+### **User Story 3.2: Apply GoogleMock for Controlled Testing**
+
+**As a developer running tests for ThermalReader,**  
+I want to use GoogleMock to expect and verify a single call to FilterData(),
+**So that** I can ensure ReadFilteredTemperature() interacts with dependencies exactly once as intended.
+
+**Scenario1: Expect single call to FilterData**
+
+- **Given** a MockFilter instance is created
+- **And** it is passed to ThermalReader upon initialization
+- **And** EXPECT_CALL(mockFilter, FilterData()).Times(1) is set with WillOnce(Return(V))
+- **When** ReadFilteredTemperature() is invoked
+- **Then** it should call FilterData() exactly once
+- **And** return the value V as defined in WillOnce
+
+
+### **User Story 3.3: Validate ReadFilteredTemp() with Multiple and Repeated Returns**
+
+**As a developer validating multiple outcomes from ReadFilteredTemperature()**,
+I want to configure MockFilter to return different values on successive and repeated calls,
+**So that** I can confirm that ThermalReader handles dynamic mock responses correctly.
+
+**Scenario 1: Return distinct values on multiple calls**
+- **Given** a MockFilter instance is injected into ThermalReader
+- **And** EXPECT_CALL(mockFilter, FilterData()) is set with WillOnce(Return(X)) followed by WillOnce(Return(Y))
+- **When** ReadFilteredTemperature() is called twice
+- **Then** the first call should return X
+- **And** the second call should return Y
+
+
+**Scenario 2: Use WillRepeatedly for fallback behavior**
+- **Given** a MockFilter is configured with EXPECT_CALL(mockFilter, FilterData()).WillOnce(Return(X)).WillOnce(Return(Y)).WillRepeatedly(Return(Z))
+- **When** ReadFilteredTemperature() is called more than twice
+- **Then** the third and all subsequent calls should return Z 
+
+
 ---

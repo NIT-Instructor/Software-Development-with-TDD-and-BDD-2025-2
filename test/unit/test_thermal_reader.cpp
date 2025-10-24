@@ -31,13 +31,12 @@ TEST_F(UtThermalReader, WhenUpdateCurrentTempOccurs_ThenUpdateFilterDataIsCalled
     EXPECT_TRUE(result);
 }
 
-// Exercise 4.1: Students should implement this test to verify the interaction between Filter and RawTempFacade.
-// This test should simulate reading raw temperature and passing it to Filter's UpdateFilterData method.
-// Students should use GoogleMock to mock the dependencies and validate that the interaction occurs as expected.
-TEST_F(UtThermalReader, UpdateCurrentTemp_CorrectlyProcessesTemperatureData)
+// User Story 4.1: Verify UpdateCurrentTemp Interaction with Filter and RawTempFacade
+TEST_F(UtThermalReader, WhenUpdateCurrentTempOccurs_ThenTemperatureDataIsProcessed)
 {
-    // Students need to set up ON_CALL and EXPECT_CALL for the mocked dependencies
-    // that simulate the interactions for processing temperature data.
+    ON_CALL(mock_raw_temp_facade_, ReadRawTemp(testing::_)).WillByDefault(testing::Return(kRawTemperatureStubValue));
+    EXPECT_CALL(mock_filter_, UpdateFilterData(kRawTemperatureStubValue)).WillOnce(testing::Return(true));
 
-    // Students should ensure the result is verified after the method call
+    auto result = temperature_reader_.UpdateCurrentTemp();
+    EXPECT_TRUE(result);
 }

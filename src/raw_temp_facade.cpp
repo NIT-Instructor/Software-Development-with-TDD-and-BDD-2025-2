@@ -1,7 +1,18 @@
 #include "raw_temp_facade.hpp"
 
-// Placeholder implementation for adapter
-int RawTempFacade::ReadRawTemp() {
-    // Students will call the actual C function, e.g., read_raw_temp() here
-    return 0;  // Placeholder return value
+static int sensor_temperatures[] = {0, 0, 0, 0, 0};
+
+int RawTempFacade::ReadRawTemp(int sensor_id)
+{
+    if (sensor_id < 1 || sensor_id > 5)
+    {
+        return -1;
+    }
+
+    sensor_temperatures[sensor_id - 1] += 1;
+    if (sensor_temperatures[sensor_id - 1] > 120)
+    {
+        sensor_temperatures[sensor_id - 1] = 0;
+    }
+    return sensor_temperatures[sensor_id - 1];
 }
