@@ -4,5 +4,8 @@
 class RawTempFacade
 {
   public:
-    MOCKABLE int ReadRawTemp(int sensor_id);
+    RawTempFacade()  = default;
+    MOCKABLE ~RawTempFacade();
+
+    MOCKABLE int ReadRawTemp(int sensor_id) const;
 };

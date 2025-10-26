@@ -2,7 +2,9 @@
 
 static int sensor_temperatures[] = {0, 0, 0, 0, 0};
 
-int RawTempFacade::ReadRawTemp(int sensor_id)
+RawTempFacade::~RawTempFacade() = default;
+
+int RawTempFacade::ReadRawTemp(int sensor_id) const
 {
     if (sensor_id < 1 || sensor_id > 5)
     {

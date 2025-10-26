@@ -1,15 +1,16 @@
 #pragma once
 
-// PRIVATE macro for accessing private members during testing
 #ifdef TESTING
-    #define PRIVATE public
+  #define PRIVATE public
+    #ifndef MOCK_ENABLE
+      #error "MOCK_ENABLE must be defined when building with TESTING"
+    #endif
 #else
-    #define PRIVATE private
+  #define PRIVATE private
 #endif
 
-// MOCKABLE macro - students need to define this for Exercise 3
 #ifdef MOCK_ENABLE
-#define MOCKABLE virtual
+  #define MOCKABLE virtual
 #else
-#define MOCKABLE
+  #define MOCKABLE
 #endif

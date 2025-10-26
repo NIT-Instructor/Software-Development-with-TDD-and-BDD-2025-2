@@ -8,8 +8,9 @@ class ThermalReader
 {
   public:
     ThermalReader(Filter& filter, RawTempFacade& raw_temp_facade);
+    virtual ~ThermalReader() = default;
 
-    MOCKABLE int  ReadFilteredTemperature();
+    MOCKABLE int  ReadFilteredTemperature() const;
     MOCKABLE bool UpdateCurrentTemp();
 
   PRIVATE : 
