@@ -16,6 +16,7 @@ if(CODE_COVERAGE)
     endif()
 endif()
 
+add_subdirectory(external)
 add_subdirectory(src)
 add_subdirectory(mock)
 add_subdirectory(test)

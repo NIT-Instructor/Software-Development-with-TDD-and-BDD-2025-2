@@ -1,13 +1,15 @@
 set(TARGETLIB "TemperatureMonitor")
 
 set(LIB_SOURCE_FILES 
-    external_c_lib.c
     thermal_reader.cpp
     filter.cpp
     temperature_utils.cpp
     raw_temp_facade.cpp)
 
-set(ADDITIONAL_INCLUDE_DIRS ../inc)
+set(ADDITIONAL_INCLUDE_DIRS
+    ../inc
+    ../external
+)
 
 add_library(${TARGETLIB} STATIC ${LIB_SOURCE_FILES})
 target_include_directories(${TARGETLIB} PUBLIC ${ADDITIONAL_INCLUDE_DIRS})
