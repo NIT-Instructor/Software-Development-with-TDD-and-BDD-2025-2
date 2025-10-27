@@ -159,3 +159,61 @@ I want to configure MockFilter to return different values on successive and repe
 
 
 ---
+
+## **Exercise 6: Hardware Monitor System**
+
+### **User Story 6.1: Update Filter with Temperature Values at Regular Intervals**
+
+**As a HardwareMonitor,**  
+I want to update the filter with new temperature values every 100ms,
+**So that** I can maintain current temperature reading for monitoring.
+
+**Scenario**
+- **Given** a HardwareMonitor instance with access to ThermalReader
+- **When** the monitor period elapses (100ms)
+- **Then** UpdateCurrentTemp should be called on the ThermalReader
+
+### **User Story 6.2: Read and Compare Filtered Temperature Against THresholds**
+
+**As a HardwareMonitor,**
+I want to read filtered temperature and compare it to define thresholds, So that
+I can detect overheating and underheating conditions.
+
+**Scenario**
+- **Given** a HardwareMonitor with configured temperature thresholds
+- **When** I check the current temperature
+- **Then** the filtered temperature should be compared against min/max thresholds
+
+### **User Story 6.3: Validate Coding Plausibility**
+
+**As a HardwareMonitor,**
+I want to check if the provided coding is plausible, So that I can ensure sensor 
+readings are within acceptable ranges.
+
+**Scenario**
+- **Given** a HardwareMonitor with Codings dependency
+- **When** validating sensor readings
+- **Then** the coding should be checked against predefined limits
+
+### **User Story 6.4: Report Overheating Alarms**
+
+**As a HardwareMonitor,**
+I want to report overheating alarms when temperature exceeds maximum threshold,
+So that appropriate action can be taken to prevent hardware damage.
+
+**Scenario**
+- **Given** a filtered temperature above the maximum threshold
+- **When** temperature checking occurs
+- **Then** an overheating alarm should be reported to SystemAlarmHandler
+
+
+### **User Story 6.5: Report Underheating Alarms**
+
+**As a HardwareMonitor,**
+I want to report underheating alarms when temperature falls below minimum threshold,
+So that the system operator can identify potenmtial sensor failures or environmental issues.
+
+**Scenario**
+- **Given** a filtered temperature below the minimum threshold
+- **When** temperature checking occurs
+- **Then** an underheating alarm should be reported to SystemAlarmHandler
