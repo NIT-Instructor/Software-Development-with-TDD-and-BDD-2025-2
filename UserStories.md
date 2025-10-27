@@ -159,3 +159,44 @@ I want to configure MockFilter to return different values on successive and repe
 
 
 ---
+
+## **User Story 5.1: Set Up the Project Structure for Acceptance Tests**
+
+**As a developer,**  
+I want to keep acceptance tests in a separate directory,  
+**So that** the project remains clean and well-structured.
+
+### **Scenario**
+
+- **Given** a new `/acceptance` directory,
+- **When** I configure the build system,
+- **Then** it should link real implementations (Filter, ThermalReader, raw_temp),
+
+
+# **User Story 5.2: Use Real Implementations in Acceptance Tests**
+
+**As a developer,**
+I want acceptance tests to use real implementations instead of mocks,
+**So that** I can verify the system’s actual behavior in realistic conditions.
+
+### **Scenario**
+
+- **Given** the acceptance test environment,
+- **When** I instantiate real classes (`Filter`, `ThermalReader`, and `RawTempFacade`),
+- **Then** the tests should execute the full data flow from reading raw temperatures to filtering results,
+- **And** confirm that all components work together correctly without using mocks (like `MOCK_ENABLE=0`).
+
+
+## **User Story 5.3: Write Parameterized Acceptance Tests**
+
+**As a developer,**
+I want to write parameterized acceptance tests using `TEST_P`,
+**So that** I can validate different scenarios efficiently without duplicating code.
+
+### **Scenario**
+
+- **Given** a parameter structure with fields like `numOfUpdates` and `expectedFilteredValue`,
+- **When** the test runs with different parameter sets (e.g., `{2, 10}` or `{3, 20}`),
+- **Then** it should call `UpdateCurrentTemp()` the specified number of times,
+- **And** verify that the resulting filtered temperature matches the expected value,
+- **Ensuring** that all test cases share the same logic but different inputs and outcomes even when the temperature resets to 0.
