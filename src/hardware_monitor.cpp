@@ -10,14 +10,30 @@ HardwareMonitor::HardwareMonitor(ThermalReader& thermal_reader,
 {
 }
 
+HardwareMonitor::~HardwareMonitor()
+{
+    StopMonitoring();
+}
+
 void HardwareMonitor::StartMonitoring()
 {
-    is_monitoring_active_ = true;
+    if (!is_monitoring_active_.load())
+    {
+        is_monitoring_active_ = true;
+        monitoring_thread_ = std::thread(&HardwareMonitor::MonitoringLoop, this);
+    }   
 }
 
 void HardwareMonitor::StopMonitoring()
 {
-    is_monitoring_active_ = false;
+    if (is_monitoring_active_.load())
+    {
+        is_monitoring_active_ = false;
+        if (monitoring_thread_.joinable())
+        {
+            monitoring_thread_.join();
+        }
+    } 
 }
 
 bool HardwareMonitor::IsMonitoringActive() const
@@ -25,7 +41,7 @@ bool HardwareMonitor::IsMonitoringActive() const
     return is_monitoring_active_;
 }
 
-void HardwareMonitor::CheckTemperature()
+void HardwareMonitor::CheckTemperature() const
 {
     int current_temp = thermal_reader_.ReadFilteredTemperature();
 
@@ -36,4 +52,13 @@ bool HardwareMonitor::ValidateCodings() const
 {
     // TBD
     return false;
+}
+
+void HardwareMonitor::MonitoringLoop()
+{
+    while (is_monitoring_active_.load())
+    {
+        CheckTemperature();
+        std::this_thread::sleep_for(std::chrono::milliseconds(kUpdateIntervalMs));
+    }
 }

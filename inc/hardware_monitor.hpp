@@ -4,6 +4,9 @@
 #include "thermal_reader.hpp"
 #include "codings.hpp"
 #include "system_alarm_handler.hpp"
+#include <thread>
+#include <atomic>
+#include <chrono>
 
 class HardwareMonitor
 {
@@ -13,19 +16,21 @@ class HardwareMonitor
     HardwareMonitor(ThermalReader& thermal_reader,
                     Codings& codings,
                     SystemAlarmHandler& alarm_handler);
-    virtual ~HardwareMonitor() = default;
+    virtual ~HardwareMonitor();
 
     MOCKABLE void StartMonitoring();
     MOCKABLE void StopMonitoring();
     MOCKABLE bool IsMonitoringActive() const;
-
-    MOCKABLE void CheckTemperature();
-    MOCKABLE bool ValidateCodings() const;
-
+    
   PRIVATE :
+    MOCKABLE void CheckTemperature() const;
+    MOCKABLE bool ValidateCodings() const;
+    void MonitoringLoop();
+
     ThermalReader&       thermal_reader_;
     Codings&             codings_;
     SystemAlarmHandler&  alarm_handler_;
-    bool                 is_monitoring_active_{false};
+    std::atomic<bool>    is_monitoring_active_;
+    std::thread          monitoring_thread_;
 };
 

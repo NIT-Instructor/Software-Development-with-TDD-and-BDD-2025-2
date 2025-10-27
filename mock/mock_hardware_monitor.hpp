@@ -17,6 +17,6 @@ class MockHardwareMonitor : public HardwareMonitor
     MOCK_METHOD(void, StopMonitoring, (), (override));
     MOCK_METHOD(bool, IsMonitoringActive, (), (const, override));
 
-    MOCK_METHOD(void, CheckTemperature, (), (override));
+    MOCK_METHOD(void, CheckTemperature, (), (const, override));
     MOCK_METHOD(bool, ValidateCodings, (), (const, override));
 };
