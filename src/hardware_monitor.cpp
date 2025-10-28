@@ -66,8 +66,7 @@ void HardwareMonitor::CheckTemperature() const
 
 bool HardwareMonitor::ValidateCodings() const
 {
-    // TBD
-    return false;
+    return codings_.AreCodingsPlausable();
 }
 
 void HardwareMonitor::MonitoringLoop()
