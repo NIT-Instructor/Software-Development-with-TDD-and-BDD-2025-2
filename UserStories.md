@@ -200,3 +200,23 @@ I want to write parameterized acceptance tests using `TEST_P`,
 - **Then** it should call `UpdateCurrentTemp()` the specified number of times,
 - **And** verify that the resulting filtered temperature matches the expected value,
 - **Ensuring** that all test cases share the same logic but different inputs and outcomes even when the temperature resets to 0.
+
+---
+
+### **User Story Project: Hardware Monitor - Implement Codings by Following TDD & BDD Methodologies**
+
+**As a developer,**
+I want the `Coding` class to define and provide access to minimum and maximum temperature limits and predefined range check,
+**So that** the Hardware Monitor can evaluate accurate temperature comparisons and validations.
+
+#### **Scenario 1: Retrieve Minimum Threshold**
+- **When** the Hardware Monitor requests the minimum temperature limit,
+- **Then** the `Coding` class should return the configured minimum threshold.
+
+**Scenario 2:**
+- **When** the Hardware Monitor requests the maximum temperature limit,
+- **Then** the `Coding` class should return the configured maximum threshold.
+
+#### **Scenario 3: Validate Temperature Within Range**
+- **When** the Hardware Monitor checks if the current temperature is within limits,
+- **Then** the `Coding` class should correctly determine and return whether it is inside or outside the range.
