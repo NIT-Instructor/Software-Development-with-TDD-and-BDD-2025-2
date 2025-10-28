@@ -10,4 +10,5 @@ target_link_libraries(${BINARY} PUBLIC
     gmock
     TemperatureMonitor
     MocksTemperatureMonitorApp
+    Threads::Threads
 )

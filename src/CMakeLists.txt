@@ -16,3 +16,6 @@ set(ADDITIONAL_INCLUDE_DIRS
 
 add_library(${TARGETLIB} STATIC ${LIB_SOURCE_FILES})
 target_include_directories(${TARGETLIB} PUBLIC ${ADDITIONAL_INCLUDE_DIRS})
+
+find_package(Threads REQUIRED)
+target_link_libraries(${TARGETLIB} PUBLIC Threads::Threads)

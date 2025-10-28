@@ -1,4 +1,5 @@
 #include "hardware_monitor.hpp"
+#include <iostream>
 
 HardwareMonitor::HardwareMonitor(ThermalReader& thermal_reader,
                                  Codings& codings,
@@ -38,14 +39,29 @@ void HardwareMonitor::StopMonitoring()
 
 bool HardwareMonitor::IsMonitoringActive() const
 {
-    return is_monitoring_active_;
+    return is_monitoring_active_.load();
 }
 
 void HardwareMonitor::CheckTemperature() const
 {
-    int current_temp = thermal_reader_.ReadFilteredTemperature();
+    // Update filter with new temperature value
+    thermal_reader_.UpdateCurrentTemp();
 
-    // TBD
+    // Read filtered temperature and check against thresholds
+    int current_temp = thermal_reader_.ReadFilteredTemperature();
+    int min_threshold = codings_.GetMinThreshold();
+    int max_threshold = codings_.GetMaxThreshold();
+
+    // Check for overheating
+    if (current_temp > max_threshold)
+    {
+        alarm_handler_.ReportOverheatingAlarm(current_temp);
+    }
+    // Check for underheating
+    else if (current_temp < min_threshold)
+    {
+        alarm_handler_.ReportUnderheatingAlarm(current_temp);
+    }
 }
 
 bool HardwareMonitor::ValidateCodings() const

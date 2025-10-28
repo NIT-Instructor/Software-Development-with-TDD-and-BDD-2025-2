@@ -3,6 +3,8 @@
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
 
+#include "mock_filter.hpp"
+#include "mock_raw_temp_facade.hpp"
 #include "mock_thermal_reader.hpp"
 #include "mock_codings.hpp"
 #include "mock_system_alarm_handler.hpp"
