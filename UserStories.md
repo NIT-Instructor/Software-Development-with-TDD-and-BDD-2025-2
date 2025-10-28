@@ -158,7 +158,7 @@ I want to configure MockFilter to return different values on successive and repe
 - **Then** the third and all subsequent calls should return Z 
 
 
-### **User Story 4.1: Separate Acceptance Tests from Unit Tests**
+### **User Story 5.1: Separate Acceptance Tests from Unit Tests**
 
 **As a developer**,
 I want to organize acceptance tests in a separate directory with their own build configuration,
@@ -177,6 +177,21 @@ I want to organize acceptance tests in a separate directory with their own build
 **When** the acceptance build is set up
 **Then** it should link against the raw_temp C library and any other required dependencies
 **And** ensure that the build passes without unresolved symbols.
+
+### **User Story 5.2: Use Real Implementations in Acceptance Tests**
+
+**As a developer**,
+I want to run acceptance tests using real implementations of all system components,
+**So that** I can validate that the integrated system behaves correctly under realistic conditions.
+
+**Scenario: Execute acceptance tests with real implementations**
+**Given** the acceptance test environment is configured with real classes (Filter, ThermalReader, and RawTempFacade)
+**When** the acceptance tests are executed
+**Then** the system should read raw temperature data via the real RawTempFacade
+**And** process it through the actual ThermalReader and Filter components
+**And** produce filtered temperature results that reflect the expected real-world data flow without using mocks.
+
+
 
 
 ---
