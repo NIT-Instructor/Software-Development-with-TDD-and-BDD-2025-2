@@ -158,4 +158,25 @@ I want to configure MockFilter to return different values on successive and repe
 - **Then** the third and all subsequent calls should return Z 
 
 
+### **User Story 4.1: Separate Acceptance Tests from Unit Tests**
+
+**As a developer**,
+I want to organize acceptance tests in a separate directory with their own build configuration,
+**So that** the project structure remains clean, modular, and easy to maintain.
+
+**Scenario 1: Create a dedicated directory for acceptance tests**
+- **Given** a project that already contains unit tests in the /tests directory
+- **When** I create a new /acceptance directory
+- **Then** the /acceptance directory should contain all acceptance test source files and related configurations
+- **And** acceptance test files should not be mixed with unit test files.
+
+
+**Scenario 2: Include necessary libraries and dependencies**
+
+**Given** the acceptance tests rely on external dependencies
+**When** the acceptance build is set up
+**Then** it should link against the raw_temp C library and any other required dependencies
+**And** ensure that the build passes without unresolved symbols.
+
+
 ---
