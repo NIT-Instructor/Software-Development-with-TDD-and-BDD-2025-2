@@ -15,6 +15,12 @@ TEST_F(UtHardwareMonitor, WhenReadFilteredTemperaturesIsCalled_ThenItShouldRetur
 
 TEST_F(UtHardwareMonitor, WhenCheckProvidedCodingIsCalled_ThenItShouldReturnTrue)
 {
-    auto result = hardware_monitor_.checkProvidedCoding();
+    auto result = hardware_monitor_.checkProvidedCoding(0);
     EXPECT_TRUE(result);
 }
+
+TEST_F(UtHardwareMonitor, UtHardwareMonitor_UtHardwareMonitor_WhenCheckProvidedCodingIsCalled_ThenItShouldReturnFalse_AndRepor_TestAlarm)
+{
+    EXPECT_FALSE(false);
+}
+
