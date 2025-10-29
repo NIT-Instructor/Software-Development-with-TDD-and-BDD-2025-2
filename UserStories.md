@@ -222,3 +222,19 @@ I want the `Coding` class to define and provide access to minimum and maximum te
 #### **Scenario 3: Validate Temperature Within Range**
 - **When** the Hardware Monitor checks if the current temperature is within limits,
 - **Then** the `Coding` class should correctly determine and return whether it is inside or outside the range.
+
+### **User Story Project: Hardware Monitor - Implement SystemAlarmHandler by Following TDD & BDD Methodologies**
+
+**As a developer,**  
+I want to implement a `SystemAlarmHandler` to log overheating and underheating alarms,  
+**So that** users can be notified when the system temperature goes beyond safe operating limits.
+
+#### **Scenario 1: Overheating Condition**
+
+- **When** `ReportOverheatingAlarm` is called,  
+- **Then** the system logs a message indicating that the temperature value is too high.
+
+#### **Scenario 2: Underheating Condition**
+
+- **When** `ReportUnderheatingAlarm` is called,  
+- **Then** the system logs a message indicating that the temperature value is too low.
