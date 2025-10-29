@@ -1,6 +1,7 @@
 #pragma once
 #include "common.hpp"
 #include "thermal_reader.hpp"
+#include "codings.hpp"
 
 class HardwareMonitor
 {
@@ -14,4 +15,5 @@ class HardwareMonitor
         ThermalReader thermal_reader_;
         Filter        filter_;
         RawTempFacade raw_temp_facade_;
+        Codings       codings_;
 };

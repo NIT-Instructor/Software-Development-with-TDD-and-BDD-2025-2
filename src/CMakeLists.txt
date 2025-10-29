@@ -6,7 +6,8 @@ set(LIB_SOURCE_FILES
     temperature_utils.cpp
     raw_temp_facade.cpp
     external_c_library.c
-    hardware_monitor.cpp)
+    hardware_monitor.cpp
+    codings.cpp)
 
 set(ADDITIONAL_INCLUDE_DIRS ../inc)
 
