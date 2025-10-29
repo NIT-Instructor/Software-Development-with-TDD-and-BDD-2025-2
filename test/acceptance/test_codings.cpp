@@ -29,7 +29,7 @@ class FixtureCodings : public AtCodings, public ::testing::WithParamInterface<Co
 
 INSTANTIATE_TEST_SUITE_P(CodingsSuite, FixtureCodings, ::testing::ValuesIn(kCodingsConditions));
 
-TEST_P(FixtureCodings, CodingsTest)
+TEST_P(FixtureCodings, ReturnsExpectedPlausibilityForGivenThresholds)
 {
     codings_.SetMaxThreshold(GetParam().max_threshold);
     codings_.SetMinThreshold(GetParam().min_threshold);

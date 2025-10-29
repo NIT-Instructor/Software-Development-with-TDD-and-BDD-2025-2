@@ -2,8 +2,6 @@
 
 #include "common.hpp"
 
-#define MINIMUM_THRESHOLD = -20
-#define MAXIMUM_THRESHOLD = 60
 
 class Codings {
   public:
@@ -19,5 +17,8 @@ class Codings {
   PRIVATE:
     int min_threshold_;
     int max_threshold_;
+
+    static constexpr int MINIMUM_THRESHOLD = -20;
+    static constexpr int MAXIMUM_THRESHOLD = 60;
 
 };
