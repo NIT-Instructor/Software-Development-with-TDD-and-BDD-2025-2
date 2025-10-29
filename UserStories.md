@@ -173,7 +173,7 @@ I want to keep acceptance tests in a separate directory,
 - **Then** it should link real implementations (Filter, ThermalReader, raw_temp),
 
 
-# **User Story 5.2: Use Real Implementations in Acceptance Tests**
+## **User Story 5.2: Use Real Implementations in Acceptance Tests**
 
 **As a developer,**
 I want acceptance tests to use real implementations instead of mocks,
@@ -203,6 +203,8 @@ I want to write parameterized acceptance tests using `TEST_P`,
 
 ---
 
+## **Project: Hardware Monitor**
+
 ### **User Story Project: Hardware Monitor - Implement Codings by Following TDD & BDD Methodologies**
 
 **As a developer,**
@@ -213,7 +215,7 @@ I want the `Coding` class to define and provide access to minimum and maximum te
 - **When** the Hardware Monitor requests the minimum temperature limit,
 - **Then** the `Coding` class should return the configured minimum threshold.
 
-**Scenario 2:**
+**Scenario 2: Retrieve Maximum Threshold**
 - **When** the Hardware Monitor requests the maximum temperature limit,
 - **Then** the `Coding` class should return the configured maximum threshold.
 
