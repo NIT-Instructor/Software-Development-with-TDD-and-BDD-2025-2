@@ -159,3 +159,137 @@ I want to configure MockFilter to return different values on successive and repe
 
 
 ---
+
+## **Project: Hardware Monitor**
+
+### **User Story 6.1: [Project] Implement Blank Hardware Monitor**
+
+**As a developer**
+I want to create a blank HardwareMonitor class with structure and interfaces only,
+**So that** I can later extend it to handle temperature updates, filtering, and alarm logic.
+
+**Scenario:** 
+Initialize basic HardwareMonitor
+
+- **Given** a new HardwareMonitor class without any logic implemented,
+- **When** the object is instantiated,
+- **Then** it should compile successfully and provide placeholders for:
+
+  - Updating temperature every 100 ms
+  - Reading filtered temperature
+  - Comparing temperature against thresholds
+  - Interacting with Codings and SystemAlarmHandler
+
+**Acceptance Criteria:**
+
+- The HardwareMonitor class compiles and can be instantiated.
+- No functional behavior (e.g., filtering or alarm) is yet implemented.
+- Public methods like UpdateTemperature(), ReadFilteredTemperature(), and CheckAlarms() are declared but return placeholder values.
+
+### **User Story 6.2: [Project] Implement Codings**
+
+**As a developer,**
+I want to define temperature thresholds and validate their plausibility,
+**So that** other modules can use consistent and valid limits for system monitoring.
+
+**Scenario 1:** 
+Provide threshold values
+
+- **Given** a new Codings class,
+- **When** the class is instantiated,
+- **Then** it should expose GetMinTemperatureThreshold() and GetMaxTemperatureThreshold() methods returning default values.
+
+**Scenario 2:**
+Validate thresholds
+
+- Given an invalid configuration where thresholds exceed the defined safe limits,
+- When CheckThresholdPlausibility() is called,
+- Then it should return false.
+
+**Scenario 3:**
+Valid configuration
+
+- Given thresholds within acceptable predefined limits,
+- When CheckThresholdPlausibility() is called,
+- Then it should return true.
+
+**Acceptance Criteria:**
+
+- Unit tests validate threshold retrieval and plausibility checking.
+- The module is self-contained and testable.
+- Tests include both valid and invalid threshold scenarios.
+
+
+### **User Story 6.3: [Project] Implement SystemAlarmHandler**
+
+**As a developer,**
+I want to detect and report overheating or underheating events,
+**So that** the system can react appropriately to temperature anomalies.
+
+**Scenario 1:**
+Report overheating alarm
+
+- **Given** a filtered temperature higher than the maximum threshold,
+- **When** ReportOverheating() is invoked,
+- **Then** it should log “Overheating detected!” to the console.
+
+**Scenario 2:**
+Report underheating alarm
+
+- **Given** a filtered temperature lower than the minimum threshold,
+- **When** ReportUnderheating() is invoked,
+- **Then** it should log “Underheating detected!” to the console.
+
+**Scenario 3:**
+Logging verification
+
+- **Given** multiple alarms are triggered sequentially,
+- **When** the alarms are reported,
+- **Then** each message should be logged distinctly in the console.
+
+**Acceptance Criteria:**
+
+- SystemAlarmHandler has methods ReportOverheating() and ReportUnderheating().
+- Console output matches expected log messages.
+- Mockable logging for test verification.
+
+
+### **User Story 6.4: [Project] Integrate HardwareMonitor, Codings, and SystemAlarmHandler**
+
+**As a system integrator,**
+I want to connect HardwareMonitor, Codings, and SystemAlarmHandler together,
+**So that** the system continuously monitors temperature and reacts to alarm conditions.
+
+**Scenario 1:**
+Normal operation
+
+- **Given** temperature values within thresholds,
+- **When** the monitor updates every 100 ms,
+- **Then** no alarm is reported.
+
+**Scenario 2:**
+Overheating detection
+
+- **Given** the filtered temperature exceeds the maximum threshold,
+- **When** HardwareMonitor compares the temperature,
+- **Then** it should invoke SystemAlarmHandler::ReportOverheating().
+
+**Scenario 3:**
+Underheating detection
+
+- **Given** the filtered temperature drops below the minimum threshold,
+- **When** HardwareMonitor compares the temperature,
+- **Then** it should invoke SystemAlarmHandler::ReportUnderheating().
+
+**Scenario 4:**
+Plausibility check failure
+
+- **Given** Codings detects implausible thresholds,
+- **When** HardwareMonitor performs an update,
+- **Then** it should skip alarm evaluation and log a plausibility warning.
+
+**Acceptance Criteria:**
+
+- Integrated unit tests confirm module interaction via mocks.
+- HardwareMonitor depends on injected Codings and SystemAlarmHandler.
+- Behavior is verified via TDD acceptance and integration tests.
