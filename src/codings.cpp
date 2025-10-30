@@ -22,5 +22,7 @@ void Codings::SetMaxThreshold(float value) {
 bool Codings::CheckThresholds(float value) const {
     if (value < min_threshold_ | value > max_threshold_) {
         return true;
+    } else {
+        return false;
     }
 }
