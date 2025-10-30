@@ -22,3 +22,20 @@ int HardwareMonitor::Update() {
         }
 
 };
+
+string HardwareMonitor::checkValueAndReport(ThermalReader& reader, Codings& codings) {
+    HardwareMonitor hw(reader, codings);
+    int result = hw.Update();
+    std::this_thread::sleep_for(std::chrono::milliseconds(100));
+
+    if(result < codings.GetMinThreshold()) {
+        std::cout<<"The value is under limits"<< result<< std::endl;
+        return alarm_handler_->ReportUnderheating();
+    } else if (result > codings.GetMaxThreshold()) {
+        std::cout<<"The value is above limits"<<result <<std::endl;
+        return alarm_handler_->ReportOverheating();
+    } else {
+        std::cout<<"The value is within limits"<<result <<std::endl;
+        return "The value is within limits\n";
+    }
+}

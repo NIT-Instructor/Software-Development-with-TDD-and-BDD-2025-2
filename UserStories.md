@@ -277,3 +277,44 @@ I want to define minimum and maximum temperature thresholds
 **Given**  predefined acceptable threshold limits
 **When**   a value is set that falls outside the allowed range
 **Then**   the coding module rejects it and reports an error
+
+
+### **Project - User Story 3: Report and log temperature-related system alarms**
+ 
+**As a developer**,
+I want to report and log overheating and underheating temperature alarms
+**So that** the system can respond appropriately and provide traceability of critical events
+ 
+**Scenario 1: Report overheating alarm**
+**Given** a filtered temperature exceeds the defined maximum threshold
+**And**   the HardwareMonitor reports the alarm to SystemAlarmHandler
+**When**  the SystemAlarmHandler receives the overheating signal
+**Then**  it should log the overheating alarm message to the console
+**And**   make  the overheating alarm available to the system
+ 
+**Scenario 2: Report underheating alarm**
+**Given** a filtered temperature is below the defined minimum threshold
+**And**   the HardwareMonitor reports the alarm to SystemAlarmHandler
+**When**  the SystemAlarmHandler receives the underheating signal
+**Then**  it should log the underheating alarm message to the console
+**And**   make the underheating alarm available to the system
+ 
+
+
+**Dave Farley about, fun facts and quotes**
+
+“There should be two tasks for a human being to perform to deploy software into a development, test, or production environment: to pick the version and environment and to press the “deploy” button.” — Dave Farley 
+
+
+“In software, when something is painful, the way to reduce the pain is to do it more frequently, not less.” — Dave Farley 
+
+
+“The earlier you catch defects, the cheaper they are to fix.” — Dave Farley 
+
+
+Dave Farley is co-author of the influential book Continuous Delivery, which helped shape how teams think about test, build, deploy and release automation. 
+
+
+Although he’s closely associated with testing and quality practices, Farley emphasizes that testing alone isn’t enough — you need disciplined engineering practices, automation, fast feedback loops and good design. 
+
+In his talks on acceptance testing, he stresses that tests should focus on “what” the system should do rather than “how” it does it, treating tests as executable specifications rather than brittle scripts.

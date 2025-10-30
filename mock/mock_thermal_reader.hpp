@@ -1,5 +1,4 @@
-#pragma once
-
+#pragma once 
 #include "mock_filter.hpp"
 #include "mock_raw_temp_facade.hpp"
 #include "thermal_reader.hpp"
