@@ -4,7 +4,11 @@ set(LIB_SOURCE_FILES
     thermal_reader.cpp
     filter.cpp
     temperature_utils.cpp
-    raw_temp_facade.cpp)
+    raw_temp_facade.cpp
+    external_c_library.c
+    hardware_monitor.cpp
+    codings.cpp
+    system_alarm_handler.cpp)
 
 set(ADDITIONAL_INCLUDE_DIRS ../inc)
 

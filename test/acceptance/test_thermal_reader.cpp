@@ -6,7 +6,7 @@ struct ThermalRaderConditions
     int expected_filterd_value;
 };
 
-static const ThermalRaderConditions kThtermalReadeContitions[] = {{2, 0}, {3, 1}};
+static const ThermalRaderConditions kThtermalReadeContitions[] = {{2, 0}, {3, 0}, {4, 1}, {5, 1}, {6, 2}, {7, 3}, {95, 91}, {1,0}};
 
 class FixtureClassThermalReader : public AtThermalReader, public ::testing::WithParamInterface<ThermalRaderConditions>
 {
@@ -26,4 +26,4 @@ TEST_P(FixtureClassThermalReader, Given)
     }
     auto filtered_temp = theremal_reader_.ReadFilteredTemperature();
     EXPECT_EQ(filtered_temp, GetParam().expected_filterd_value);
-}
+}        
