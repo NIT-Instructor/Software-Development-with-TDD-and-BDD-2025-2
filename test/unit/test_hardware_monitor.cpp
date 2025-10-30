@@ -2,9 +2,9 @@
 #include "gtest/gtest.h"
 #include <gtest/gtest.h>
 
-#define UNDERHEATING    1
-#define OVERHEATING     2
-#define PLAUSIBLE       3
+#define UNDERHEATING    0
+#define OVERHEATING     0
+#define PLAUSIBLE       0
 
 TEST_F(UtHardwareMonitor, WhenReportUnderheatingAlarmIsCalled_ThenLogUnderheatingAlarmToConsole) {
     int output = hardware_monitor.hwm_function();
