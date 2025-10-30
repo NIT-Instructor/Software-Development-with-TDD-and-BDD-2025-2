@@ -43,3 +43,15 @@ sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin 
 sudo docker run hello-world
 
 ```
+
+## Kent Beck
+
+Kent Beck, one of the key figures in software development and the primary author behind Test-Driven Development (TDD). Here’s a concise summary about him:
+
+Profession: Software engineer, author, and software methodology pioneer
+Notable contributions:
+Extreme Programming (XP): Kent Beck is one of the original creators of XP, an agile software development methodology.
+Test-Driven Development (TDD): He popularized TDD, which emphasizes writing tests before writing the actual code.
+JUnit: Co-creator of JUnit, the widely used testing framework for Java.
+Books: He wrote influential books like “Test-Driven Development: By Example” and “Extreme Programming Explained”.
+In short, Kent Beck is a major figure in modern software engineering, especially in the areas of agile practices, automated testing, and TDD.
