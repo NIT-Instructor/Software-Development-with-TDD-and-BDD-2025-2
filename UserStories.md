@@ -221,6 +221,34 @@ I want to use parameterized acceptance tests with real C library input
 **And**   the test scenarios remain readable and maintainable
 
 
-
+### **Project: Hardware Monitor Temperature and Report Alarms**
+ 
+**As a developer**,
+I want the HardwareMonitor to continuously track and filter temperature readings, validate their plausibility, and trigger alarms when thresholds are breached
+**So that** the system can prevent hardware damage caused by overheating or underheating conditions.
+ 
+**Scenario 1: Regular Temperature Update and Filtering**
+**Given** the HardwareMonitor is active
+**And** a valid temperature sensor is providing readings
+**When** the HardwareMonitor samples the temperature every 100ms
+**And** updates the temperature filter with the new value
+**Then** the filtered temperature value should reflect the latest readings
+**And** the filter should smooth out transient spikes or noise.
+ 
+**Scenario 2: Overheating Detection and Alarm Reporting**
+ 
+**Given** the filtered temperature exceeds the defined maximum threshold
+**And** the temperature reading is plausible
+**When** the HardwareMonitor compares the temperature to the thresholds
+**Then** it should report an overheating alarm to the SystemAlarmHandler
+**And** log the event with timestamp and temperature value.
+ 
+**Scenario 3: Underheating Detection and Alarm Reporting**
+ 
+**Given** the filtered temperature falls below the defined minimum threshold
+**And** the temperature reading is plausible
+**When** the HardwareMonitor compares the temperature to the thresholds
+**Then** it should report an underheating alarm to the SystemAlarmHandler
+**And** log the event with timestamp and temperature value.
 
 ---
