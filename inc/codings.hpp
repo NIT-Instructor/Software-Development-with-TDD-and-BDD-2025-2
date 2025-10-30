@@ -9,7 +9,7 @@ class Codings {
 
     MOCKABLE int GetMinThreshold();
     MOCKABLE int GetMaxThreshold();
-    MOCKABLE bool AreCodingsPlausable();
+    MOCKABLE bool AreCodingsPlausible();
 
     void SetMaxThreshold(int value);
     void SetMinThreshold(int value);

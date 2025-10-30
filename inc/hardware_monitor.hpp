@@ -6,11 +6,11 @@
 
 class HardwareMonitor {
 
-public:
+  public:
     HardwareMonitor(ThermalReader&, Codings&,  SystemAlarmHandler&);
     int hwm_function();
 
-PRIVATE:
+  PRIVATE:
     ThermalReader& thermal_reader;
     Codings& codings;
     SystemAlarmHandler& system_alarm_handler;

@@ -4,14 +4,14 @@ struct CodingsConditions
 {
     int min_threshold;
     int max_threshold;
-    bool plausable;
+    bool plausible;
 };
 
 std::ostream& operator<<(std::ostream& os, const CodingsConditions& c)
 {
     os << "{min_threshold: " << c.min_threshold
        << ", max_threshold: " << c.max_threshold
-       << ", plausable: " << std::boolalpha << c.plausable
+       << ", plausible: " << std::boolalpha << c.plausible
        << "}";
     return os;
 }
@@ -37,5 +37,5 @@ TEST_P(FixtureCodings, ReturnsExpectedPlausibilityForGivenThresholds)
     ASSERT_EQ(codings_.GetMaxThreshold(), GetParam().max_threshold);
     ASSERT_EQ(codings_.GetMinThreshold(), GetParam().min_threshold);
 
-    ASSERT_EQ(codings_.AreCodingsPlausable(), GetParam().plausable);
+    ASSERT_EQ(codings_.AreCodingsPlausible(), GetParam().plausible);
 }

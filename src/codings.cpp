@@ -10,7 +10,7 @@ int Codings::GetMaxThreshold() {
     return max_threshold_;
 }
 
-bool Codings::AreCodingsPlausable() {
+bool Codings::AreCodingsPlausible() {
     return (min_threshold_ >= MINIMUM_THRESHOLD) && (max_threshold_ <= MAXIMUM_THRESHOLD);
 }
 

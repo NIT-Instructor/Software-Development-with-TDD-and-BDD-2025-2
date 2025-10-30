@@ -16,11 +16,11 @@ TEST_F(UtCodings, WhenGetMinThresholdIsCalled_ThenMinTresholdShouldBeReturned)
     ASSERT_EQ(codings_.GetMinThreshold(), minThreshold);
 }
 
-TEST_F(UtCodings, WhenAreCodingsPlausableIsCalled_ThenTrueShouldBeReturned)
+TEST_F(UtCodings, WhenAreCodingsPlausibleIsCalled_ThenTrueShouldBeReturned)
 {
     const int maxThreshold = 23;
     const int minThreshold = 4;
     codings_.SetMaxThreshold(maxThreshold);
     codings_.SetMinThreshold(minThreshold);
-    ASSERT_TRUE(codings_.AreCodingsPlausable());
+    ASSERT_TRUE(codings_.AreCodingsPlausible());
 }

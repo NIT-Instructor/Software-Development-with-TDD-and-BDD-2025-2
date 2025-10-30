@@ -12,7 +12,9 @@ struct HardwareMonitorConditions {
     std::vector<int> heating_status;
 };
 
-static const HardwareMonitorConditions kHardwareMonitorConditions[] = {{3, {1, 1, 1}}};
+static const HardwareMonitorConditions kHardwareMonitorConditions[] = {22, {1, 1, 1, 1, 1, 1, 1, 1,
+                                                                            0, 0, 0, 0, 0, 0, 0, 0,  
+                                                                            0, 0, 2, 2, 2, 3}};         
 
 class FixtureHardwareMonitor : public AtHardwareMonitor, public ::testing::WithParamInterface<HardwareMonitorConditions> {};
 
@@ -25,6 +27,10 @@ TEST_P(FixtureHardwareMonitor, GivenValues)
 
     for (int i = 0; i < GetParam().num_of_checks; ++i)
     {
+        if(i == (GetParam().num_of_checks - 1)){
+            codings.SetMaxThreshold(68);
+            codings.SetMinThreshold(-25);
+        }
         EXPECT_EQ(hardware_monitor.hwm_function(), GetParam().heating_status[i]);
     }
 
