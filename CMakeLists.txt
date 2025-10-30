@@ -4,7 +4,7 @@ project(NIT_TDD)
 find_package(GTest REQUIRED)
 
 add_definitions(-DMOCK_ENABLE=${MOCK_ENABLE})
-
+add_definitions(-DTESTING=${TESTING})
 
 option(CODE_COVERAGE "Build with code coverage" OFF)
 
@@ -16,6 +16,7 @@ if(CODE_COVERAGE)
     endif()
 endif()
 
+add_subdirectory(external)
 add_subdirectory(src)
 add_subdirectory(mock)
 add_subdirectory(test)

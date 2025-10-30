@@ -1,18 +1,16 @@
 #include "raw_temp_facade.hpp"
+extern "C" {
+    #include "external_c_lib.h"
+}
 
-static int sensor_temperatures[] = {0, 0, 0, 0, 0};
+RawTempFacade::~RawTempFacade() = default;
 
-int RawTempFacade::ReadRawTemp(int sensor_id)
+int RawTempFacade::ReadRawTemp(int sensor_id) const
 {
-    if (sensor_id < 1 || sensor_id > 5)
-    {
-        return -1;
-    }
+    return read_raw_temp(sensor_id);
+}
 
-    sensor_temperatures[sensor_id - 1] += 1;
-    if (sensor_temperatures[sensor_id - 1] > 120)
-    {
-        sensor_temperatures[sensor_id - 1] = 0;
-    }
-    return sensor_temperatures[sensor_id - 1];
+void RawTempFacade::ResetSensor()
+{
+    reset_sensor();
 }
