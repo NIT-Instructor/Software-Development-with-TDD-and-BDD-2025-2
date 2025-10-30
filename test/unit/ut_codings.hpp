@@ -10,10 +10,10 @@
 #include "../../inc/hardware_monitor.hpp"
 #include "../../mock/mock_thermal_reader.hpp"
 
-class UtHardwareMonitor : public ::testing::Test
+class UtCodings : public ::testing::Test
 {
 public:
-    UtHardwareMonitor();
+    UtCodings();
 protected:
     ::testing::NiceMock<MockFilter>        mock_filter_;
     ::testing::NiceMock<MockRawTempFacade> mock_raw_temp_facade_;

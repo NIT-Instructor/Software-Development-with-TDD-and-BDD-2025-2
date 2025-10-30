@@ -10,9 +10,10 @@ class AtHardwareMonitor : public testing::Test
     AtHardwareMonitor();
 
   protected:
-    ThermalReader theremal_reader_;
-    Filter        filter_;
-    RawTempFacade raw_temp_facade_;
+    ThermalReader   theremal_reader_;
+    Filter          filter_;
+    RawTempFacade   raw_temp_facade_;
     HardwareMonitor hardware_monitor_;
+    Codings         codings_;
 
 };
