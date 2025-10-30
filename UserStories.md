@@ -223,6 +223,7 @@ I want the `Coding` class to define and provide access to minimum and maximum te
 - **When** the Hardware Monitor checks if the current temperature is within limits,
 - **Then** the `Coding` class should correctly determine and return whether it is inside or outside the range.
 
+
 ### **User Story Project: Hardware Monitor - Implement SystemAlarmHandler by Following TDD & BDD Methodologies**
 
 **As a developer,**  
@@ -238,3 +239,32 @@ I want to implement a `SystemAlarmHandler` to log overheating and underheating a
 
 - **When** `ReportUnderheatingAlarm` is called,  
 - **Then** the system logs a message indicating that the temperature value is too low.
+
+
+### **User Story Project: Hardware Monitor - Implement HardwareMonitor by Following TDD & BDD Methodologies**
+
+**As a developer,**
+I want the Hardware Monitor to continuously observe and validate temperature readings,
+**So that** it can trigger and record alarms when specific conditions occur.
+
+#### **Scenario 1 – Updating Temperature Filter**
+- **When** a new temperature measurement arrives every 100ms,
+- **Then** the Hardware Monitor should update the filter with new value.
+
+#### **Scenario 2 – Comparing Temperature to Thresholds**
+- **When** the Hardware Monitor retrieves the filtered temperature,
+- **Then** it checks whether the value is within the minimum and maximum thresholds defined by the Codings class.
+
+#### **Scenario 3 – Validating Threshold Codings**
+- **When** the Hardware Monitor handles incoming temperature data,
+- **Then** it verifies that the provided coding for the thresholds is plausible.
+
+#### **Scenario 4 – Handling Overheating Condition**
+- **When** the filtered temperature exceeds the maximum allowed limit,
+- **Then** the Hardware Monitor reports an overheating alert to the System Alarm Handler.
+
+#### **Scenario 5 – Handling Underheating Condition**
+- **When** the filtered temperature falls below the minimum limit,
+- **Then** the Hardware Monitor raises an underheating alert to the System Alarm Handler.
+
+---
