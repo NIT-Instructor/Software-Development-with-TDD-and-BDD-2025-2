@@ -1,20 +1,21 @@
 #include "codings.hpp"
 
+Codings::Codings() : min_threshold(kDefaultMinThreshold), max_threshold(kDefaultMaxThreshold)
+{
+}
+
 int Codings::GetMinThreshold() const
 {
-    return kDefaultMinThreshold;
+    return min_threshold;
 }
 
 int Codings::GetMaxThreshold() const
 {
-    return kDefaultMaxThreshold;
+    return max_threshold;
 }
 
 bool Codings::AreCodingsPlausable() const
 {
-    int min_threshold = GetMinThreshold();
-    int max_threshold = GetMaxThreshold();
-
     // Check if min threshold is less than max threshold
     if (min_threshold >= max_threshold)
     {
@@ -32,4 +33,14 @@ bool Codings::AreCodingsPlausable() const
     }
 
     return true;
+}
+
+void Codings::SetMaxThreshold(int max)
+{
+    max_threshold = max;
+}
+
+void Codings::SetMinThreshold(int min)
+{
+    min_threshold = min;
 }
