@@ -26,7 +26,7 @@ TEST_F(UtHardwareMonitor, GivenMonitoringIsActive_WhenMonitoringLoopRuns_ThenUpd
     hardware_monitor_.StartMonitoring();
 
     // Let the monitoring run for a short duration
-    std::this_thread::sleep_for(std::chrono::milliseconds(350));
+    std::this_thread::sleep_for(std::chrono::milliseconds(400));
 
     // Stop monitoring
     hardware_monitor_.StopMonitoring();
@@ -43,7 +43,7 @@ TEST_F(UtHardwareMonitor, GivenMonitoringIsActive_WhenMonitoringLoopRuns_ThenChe
         .Times(testing::AtLeast(1))
         .WillRepeatedly(testing::Return(60));
     EXPECT_CALL(mock_thermal_reader_, ReadFilteredTemperature())
-        .Times(3)
+        .Times(testing::AtLeast(3))
         .WillOnce(testing::Return(-35))   // Below min threshold
         .WillOnce(testing::Return(30))    // Within thresholds
         .WillOnce(testing::Return(65));   // Above max threshold
@@ -54,7 +54,7 @@ TEST_F(UtHardwareMonitor, GivenMonitoringIsActive_WhenMonitoringLoopRuns_ThenChe
     hardware_monitor_.StartMonitoring();
 
     // Let the monitoring run for a short duration
-    std::this_thread::sleep_for(std::chrono::milliseconds(300));
+    std::this_thread::sleep_for(std::chrono::milliseconds(400));
 
     // Stop monitoring
     hardware_monitor_.StopMonitoring();

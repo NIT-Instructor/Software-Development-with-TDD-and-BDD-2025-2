@@ -1,7 +1,6 @@
 #include "external_c_lib.h"
+#include <string.h>
 
-static int temp = 1;
-const int num_sensor = 5;
 static int sensor_temperatures[] = {0, 0, 0, 0, 0};
 
 int read_raw_temp(int sensor_id) {
@@ -19,8 +18,5 @@ int read_raw_temp(int sensor_id) {
 }
 
 void reset_sensor() {
-    for(int i = 0; i < num_sensor; i++)
-    {
-        sensor_temperatures[i] = 0;
-    }
+    memset(sensor_temperatures, 0, sizeof(sensor_temperatures));
 }
