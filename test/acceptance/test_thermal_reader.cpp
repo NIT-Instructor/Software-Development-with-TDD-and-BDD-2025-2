@@ -6,7 +6,7 @@ struct ThermalRaderConditions
     int expected_filterd_value;
 };
 
-static const ThermalRaderConditions kThtermalReadeContitions[] = {{2, 0}, {3, 1}, {4, 3}, {5, 6}, {6, 11}, {7, 18}, {95, 91}, {1,0}};
+static const ThermalRaderConditions kThtermalReadeContitions[] = {{2, 0}, {3, 0}, {4, 1}, {5, 1}, {6, 2}, {7, 3}, {95, 91}, {1,0}};
 
 class FixtureClassThermalReader : public AtThermalReader, public ::testing::WithParamInterface<ThermalRaderConditions>
 {

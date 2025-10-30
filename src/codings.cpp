@@ -1,18 +1,20 @@
 #include "codings.hpp"
 
-Codings::Codings() {}
+Codings::Codings(int min_treashold, int max_treashold)
+    : min_treashold_(min_treashold), max_treashold_(max_treashold) {}
 
 int Codings::GetMinTreashold()
 {
-    return 0;
+    return min_treashold_;
 }
 
 int Codings::GetMaxTreashold()
 {
-    return 100;
+    return max_treashold_;
 }
 
-bool Codings::AreCodingsPlausable(int temperature_value)
+bool Codings::AreCodingsPlausable()
 {
-    return true;
+    return (min_treashold_ >= MIN_ALLOWED_TREASHOLD) && (max_treashold_ <= MAX_ALLOWED_TREASHOLD) 
+        && (min_treashold_ < max_treashold_);
 }

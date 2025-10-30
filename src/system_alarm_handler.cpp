@@ -2,10 +2,12 @@
 
 void SystemAlarmHandler::ReportOverheatingAlarm()
 {
-    std::cout << "Overheating alarm reported." << std::endl;
+    ++overheat_alarm_counter_;
+    std::cout << "Overheating alarm reported." << overheat_alarm_counter_ << std::endl;
 }
 
 void SystemAlarmHandler::ReportUnderheatingAlarm()
 {
-    std::cout << "Underheating alarm reported." << std::endl;
+    ++underheat_alarm_counter_;
+    std::cout << "Underheating alarm reported." << underheat_alarm_counter_ << std::endl;
 }

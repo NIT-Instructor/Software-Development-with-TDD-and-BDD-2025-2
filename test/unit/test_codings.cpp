@@ -1,20 +1,19 @@
-#include "ut_codings.hpp"
+#include "codings.hpp"
+#include <gtest/gtest.h>
 
-TEST_F(UtCodings, AreCodingsPlausable_ReturnsTrue_WhenValueWithinThreshold)
+TEST(CodingsLocalInstances, AreCodingsPlausable_ForCustomRanges)
 {
-    int test_value = 50;
-    bool result = codings_.AreCodingsPlausable(test_value);
-    EXPECT_TRUE(result);
-}
+    Codings c1(5, 60);
+    EXPECT_TRUE(c1.AreCodingsPlausable());
+    EXPECT_EQ(c1.GetMinTreashold(), 5);
+    EXPECT_EQ(c1.GetMaxTreashold(), 60);
 
-TEST_F(UtCodings, UtCodings_GetMaxTreashold_Test)
-{
-    int max_treashold = codings_.GetMaxTreashold();
-    EXPECT_EQ(max_treashold, 100);
-}
+    Codings c2(0, 120);
+    EXPECT_TRUE(c2.AreCodingsPlausable());
 
-TEST_F(UtCodings, UtCodings_GetMinTreashold_Test)
-{
-    int min_treashold = codings_.GetMinTreashold();
-    EXPECT_EQ(min_treashold, 0);
+    Codings c3(0, 130);
+    EXPECT_FALSE(c3.AreCodingsPlausable());
+
+    Codings invalid(50, 10);
+    EXPECT_FALSE(invalid.AreCodingsPlausable());
 }

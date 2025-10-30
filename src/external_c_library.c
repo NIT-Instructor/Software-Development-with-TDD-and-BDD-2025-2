@@ -16,3 +16,10 @@ int read_raw_temp(int sensor_id)
     }
     return sensor_temperatures[sensor_id - 1];
 }
+
+void reset_sensor_temperatures(void)
+{
+    for (int i = 0; i < sizeof(sensor_temperatures)/sizeof(sensor_temperatures[0]); ++i) {
+        sensor_temperatures[i] = 0;
+    }
+}

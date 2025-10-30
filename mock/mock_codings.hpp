@@ -11,5 +11,5 @@ class MockCodings : public Codings
 
     MOCK_METHOD(int, GetMinTreashold, ());
     MOCK_METHOD(int, GetMaxTreashold, ());
-    MOCK_METHOD(bool, AreCodingsPlausable, (int));
+    MOCK_METHOD(bool, AreCodingsPlausable, ());
 };
