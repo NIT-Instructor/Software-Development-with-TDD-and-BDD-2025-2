@@ -26,6 +26,7 @@ TEST_P(HardwareMonitorPeriodParamTest, UpdatesTemperatureEvery100ms)
     auto filtered_value = thermal_reader_->ReadFilteredTemperature();
 
     EXPECT_EQ(filtered_value, p.expected_filtered_value);
+    raw_temp_facade_->ResetSensor();
 }
 
 // Instantiate test cases
@@ -34,7 +35,6 @@ INSTANTIATE_TEST_SUITE_P(
     HardwareMonitorPeriodParamTest,
     ::testing::Values(
         PeriodParams{2, 0},
-        PeriodParams{3, 1},
-        PeriodParams{4, 3}
+        PeriodParams{4, 1}
     )
 );

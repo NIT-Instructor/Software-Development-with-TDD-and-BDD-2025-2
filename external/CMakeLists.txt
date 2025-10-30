@@ -5,3 +5,7 @@ set(LIB_SOURCE_FILES
     )
 
 add_library(${TARGETLIB} STATIC ${LIB_SOURCE_FILES})
+
+target_include_directories(${TARGETLIB} PUBLIC
+    ${CMAKE_CURRENT_SOURCE_DIR}
+)

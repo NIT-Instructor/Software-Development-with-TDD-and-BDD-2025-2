@@ -10,4 +10,5 @@ class RawTempFacade
                                // to allow mocks (MOCK_ENABLE).
 
     MOCKABLE int ReadRawTemp(int sensor_id) const;
+    void ResetSensor();
 };
