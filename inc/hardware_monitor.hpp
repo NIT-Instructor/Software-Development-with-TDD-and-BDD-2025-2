@@ -4,7 +4,6 @@
 #include "filter.hpp"
 #include "raw_temp_facade.hpp"
 #include "codings.hpp"
-#include "system_alarm_handler.hpp"
 #include "thermal_reader.hpp"
 #include <thread>
 #include <chrono>
