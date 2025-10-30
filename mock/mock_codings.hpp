@@ -11,5 +11,5 @@ class MockCodings : public Codings
     ~MockCodings() = default;
     MOCK_METHOD(int, GetMinThreshold, (), (override));
     MOCK_METHOD(int, GetMaxThreshold, (), (override));
-    MOCK_METHOD(int, ConvertCentigradeToCelsius, (int), (override));
+    MOCK_METHOD(bool, AreCodingsPlausible, (), (override));
 };

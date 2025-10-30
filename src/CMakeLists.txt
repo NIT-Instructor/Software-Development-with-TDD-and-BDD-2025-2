@@ -1,10 +1,14 @@
 set(TARGETLIB "TemperatureMonitor")
 
-set(LIB_SOURCE_FILES 
+set(LIB_SOURCE_FILES
     thermal_reader.cpp
     filter.cpp
     temperature_utils.cpp
-    raw_temp_facade.cpp)
+    raw_temp_facade.cpp
+    external_c_lib.c
+    codings.cpp
+    system_alarm_handler.cpp
+    hardware_monitor.cpp)
 
 set(ADDITIONAL_INCLUDE_DIRS ../inc)
 

@@ -5,4 +5,5 @@ class RawTempFacade
 {
   public:
     MOCKABLE int ReadRawTemp(int sensor_id);
+    void restartTemp();
 };

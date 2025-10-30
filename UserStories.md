@@ -159,3 +159,112 @@ I want to configure MockFilter to return different values on successive and repe
 
 
 ---
+
+## **User Story 5.1: Set Up the Project Structure for Acceptance Tests**
+
+**As a developer,**  
+I want to keep acceptance tests in a separate directory,  
+**So that** the project remains clean and well-structured.
+
+### **Scenario**
+
+- **Given** a new `/acceptance` directory,
+- **When** I configure the build system,
+- **Then** it should link real implementations (Filter, ThermalReader, raw_temp),
+
+
+## **User Story 5.2: Use Real Implementations in Acceptance Tests**
+
+**As a developer,**
+I want acceptance tests to use real implementations instead of mocks,
+**So that** I can verify the system’s actual behavior in realistic conditions.
+
+### **Scenario**
+
+- **Given** the acceptance test environment,
+- **When** I instantiate real classes (`Filter`, `ThermalReader`, and `RawTempFacade`),
+- **Then** the tests should execute the full data flow from reading raw temperatures to filtering results,
+- **And** confirm that all components work together correctly without using mocks (like `MOCK_ENABLE=0`).
+
+
+## **User Story 5.3: Write Parameterized Acceptance Tests**
+
+**As a developer,**
+I want to write parameterized acceptance tests using `TEST_P`,
+**So that** I can validate different scenarios efficiently without duplicating code.
+
+### **Scenario**
+
+- **Given** a parameter structure with fields like `numOfUpdates` and `expectedFilteredValue`,
+- **When** the test runs with different parameter sets (e.g., `{2, 10}` or `{3, 20}`),
+- **Then** it should call `UpdateCurrentTemp()` the specified number of times,
+- **And** verify that the resulting filtered temperature matches the expected value,
+- **Ensuring** that all test cases share the same logic but different inputs and outcomes even when the temperature resets to 0.
+
+---
+
+## **Project: Hardware Monitor**
+
+### **User Story Project: Hardware Monitor - Implement Codings by Following TDD & BDD Methodologies**
+
+**As a developer,**
+I want the `Coding` class to define and provide access to minimum and maximum temperature limits and predefined range check,
+**So that** the Hardware Monitor can evaluate accurate temperature comparisons and validations.
+
+#### **Scenario 1: Retrieve Minimum Threshold**
+- **When** the Hardware Monitor requests the minimum temperature limit,
+- **Then** the `Coding` class should return the configured minimum threshold.
+
+**Scenario 2: Retrieve Maximum Threshold**
+- **When** the Hardware Monitor requests the maximum temperature limit,
+- **Then** the `Coding` class should return the configured maximum threshold.
+
+#### **Scenario 3: Validate Temperature Within Range**
+- **When** the Hardware Monitor checks if the current temperature is within limits,
+- **Then** the `Coding` class should correctly determine and return whether it is inside or outside the range.
+
+
+### **User Story Project: Hardware Monitor - Implement SystemAlarmHandler by Following TDD & BDD Methodologies**
+
+**As a developer,**  
+I want to implement a `SystemAlarmHandler` to log overheating and underheating alarms,  
+**So that** users can be notified when the system temperature goes beyond safe operating limits.
+
+#### **Scenario 1: Overheating Condition**
+
+- **When** `ReportOverheatingAlarm` is called,  
+- **Then** the system logs a message indicating that the temperature value is too high.
+
+#### **Scenario 2: Underheating Condition**
+
+- **When** `ReportUnderheatingAlarm` is called,  
+- **Then** the system logs a message indicating that the temperature value is too low.
+
+
+### **User Story Project: Hardware Monitor - Implement HardwareMonitor by Following TDD & BDD Methodologies**
+
+**As a developer,**
+I want the Hardware Monitor to continuously observe and validate temperature readings,
+**So that** it can trigger and record alarms when specific conditions occur.
+
+#### **Scenario 1 – Updating Temperature Filter**
+- **When** a new temperature measurement arrives every 100ms,
+- **Then** the Hardware Monitor should update the filter with new value.
+
+#### **Scenario 2 – Comparing Temperature to Thresholds**
+- **When** the Hardware Monitor retrieves the filtered temperature,
+- **Then** it checks whether the value is within the minimum and maximum thresholds defined by the Codings class.
+
+#### **Scenario 3 – Validating Threshold Codings**
+- **When** the Hardware Monitor handles incoming temperature data,
+- **Then** it verifies that the provided coding for the thresholds is plausible.
+
+#### **Scenario 4 – Handling Overheating Condition**
+- **When** the filtered temperature exceeds the maximum allowed limit,
+- **Then** the Hardware Monitor reports an overheating alert to the System Alarm Handler.
+
+#### **Scenario 5 – Handling Underheating Condition**
+- **When** the filtered temperature falls below the minimum limit,
+- **Then** the Hardware Monitor raises an underheating alert to the System Alarm Handler.
+
+---

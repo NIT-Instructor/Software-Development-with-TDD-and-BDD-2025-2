@@ -6,7 +6,7 @@ struct ThermalRaderConditions
     int expected_filterd_value;
 };
 
-static const ThermalRaderConditions kThtermalReadeContitions[] = {{2, 0}, {3, 1}};
+static const ThermalRaderConditions kThtermalReadeContitions[] = {{2, 0}, {3, 1}, {4, 3}, {5, 6}, {6, 11}, {7, 18}, {95, 91}, {0, 0}};
 
 class FixtureClassThermalReader : public AtThermalReader, public ::testing::WithParamInterface<ThermalRaderConditions>
 {
@@ -18,7 +18,7 @@ class FixtureClassThermalReader : public AtThermalReader, public ::testing::With
 
 INSTANTIATE_TEST_SUITE_P(ThermalRaderSuite, FixtureClassThermalReader, ::testing::ValuesIn(kThtermalReadeContitions));
 
-TEST_P(FixtureClassThermalReader, Given)
+TEST_P(FixtureClassThermalReader, WhenUpdateCurrentTempIsCalledMultipleTimes_ThenReadFilteredTemperatureReturnsExpectedValue)
 {
     for (int i = 0; i < GetParam().num_of_update_currect_temp_called; ++i)
     {

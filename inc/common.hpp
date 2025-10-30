@@ -13,3 +13,14 @@
 #else
 #define MOCKABLE
 #endif
+
+namespace Monitoring
+{
+    enum SystemStatus
+    {
+        Normal = 0,
+        Underheating = 1,
+        Overheating =  2,
+        NotPlausible = 3
+    };
+}
