@@ -253,3 +253,27 @@ I want the HardwareMonitor to continuously track and filter temperature readings
 **When** updates are called slower than 100ms
 **Then** the filter should be updated on each call
 
+### **Project - User Story 2: Configure and Validate Temperature Thresholds**
+
+**As a developer**,
+
+I want to define minimum and maximum temperature thresholds
+**So that** the monitoring system can trigger alarms when limits are exceeded
+
+**Scenario 1: Return current thresholds**
+
+**Given** the system is initialized
+**When**  the thresholds are requested
+**Then**  the coding module returns the current minimum and maximum temperature values
+
+**Scenario 2: Accept thresholds within limits**
+
+**Given**  predefined acceptable threshold limits
+**When**   a new minimum and maximum are set within these limits
+**Then**   the values are accepted and saved
+
+**Scenario 3: Reject thresholds outside limits**
+
+**Given**  predefined acceptable threshold limits
+**When**   a value is set that falls outside the allowed range
+**Then**   the coding module rejects it and reports an error
