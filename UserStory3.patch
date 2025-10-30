@@ -1,0 +1,135 @@
+diff --git a/UserStories.md b/UserStories.md
+index c2b1a1f..cdf63da 100644
+--- a/UserStories.md
++++ b/UserStories.md
+@@ -277,3 +277,44 @@ I want to define minimum and maximum temperature thresholds
+ **Given**  predefined acceptable threshold limits
+ **When**   a value is set that falls outside the allowed range
+ **Then**   the coding module rejects it and reports an error
++
++
++### **Project - User Story 3: Report and log temperature-related system alarms**
++ 
++**As a developer**,
++I want to report and log overheating and underheating temperature alarms
++**So that** the system can respond appropriately and provide traceability of critical events
++ 
++**Scenario 1: Report overheating alarm**
++**Given** a filtered temperature exceeds the defined maximum threshold
++**And**   the HardwareMonitor reports the alarm to SystemAlarmHandler
++**When**  the SystemAlarmHandler receives the overheating signal
++**Then**  it should log the overheating alarm message to the console
++**And**   make  the overheating alarm available to the system
++ 
++**Scenario 2: Report underheating alarm**
++**Given** a filtered temperature is below the defined minimum threshold
++**And**   the HardwareMonitor reports the alarm to SystemAlarmHandler
++**When**  the SystemAlarmHandler receives the underheating signal
++**Then**  it should log the underheating alarm message to the console
++**And**   make the underheating alarm available to the system
++ 
++
++
++**Dave Farley about, fun facts and quotes**
++
++“There should be two tasks for a human being to perform to deploy software into a development, test, or production environment: to pick the version and environment and to press the “deploy” button.” — Dave Farley 
++
++
++“In software, when something is painful, the way to reduce the pain is to do it more frequently, not less.” — Dave Farley 
++
++
++“The earlier you catch defects, the cheaper they are to fix.” — Dave Farley 
++
++
++Dave Farley is co-author of the influential book Continuous Delivery, which helped shape how teams think about test, build, deploy and release automation. 
++
++
++Although he’s closely associated with testing and quality practices, Farley emphasizes that testing alone isn’t enough — you need disciplined engineering practices, automation, fast feedback loops and good design. 
++
++In his talks on acceptance testing, he stresses that tests should focus on “what” the system should do rather than “how” it does it, treating tests as executable specifications rather than brittle scripts.
+diff --git a/inc/hardware_monitor.hpp b/inc/hardware_monitor.hpp
+index 56e4371..99fdd22 100644
+--- a/inc/hardware_monitor.hpp
++++ b/inc/hardware_monitor.hpp
+@@ -7,15 +7,24 @@
+ #include "thermal_reader.hpp"
+ #include <thread>
+ #include <chrono>
++#include "system_alarm_handler.hpp"
+ 
+ class HardwareMonitor
+ {
+   public:
+     HardwareMonitor(ThermalReader& reader, Codings& codings);
+     int Update();
++    string checkValueAndReport(ThermalReader& reader, Codings& codings);
+   private : 
+     ThermalReader &reader_;
+     Codings& codings_;
+     std::chrono::steady_clock::time_point last_update_time_;
+-    static constexpr int kUpdateIntervalMs = 100; 
+-};
+\ No newline at end of file
++    static constexpr int kUpdateIntervalMs = 100;
++    int min_threshold_;                 
++    int max_threshold_;
++    SystemAlarmHandler* alarm_handler_;
++    
++};
++
++
++
+diff --git a/mock/mock_thermal_reader.hpp b/mock/mock_thermal_reader.hpp
+index 4ee6008..f81c3eb 100644
+--- a/mock/mock_thermal_reader.hpp
++++ b/mock/mock_thermal_reader.hpp
+@@ -1,5 +1,4 @@
+-#pragma once
+-
++#pragma once 
+ #include "mock_filter.hpp"
+ #include "mock_raw_temp_facade.hpp"
+ #include "thermal_reader.hpp"
+diff --git a/src/CMakeLists.txt b/src/CMakeLists.txt
+index a685825..6bd3ed9 100644
+--- a/src/CMakeLists.txt
++++ b/src/CMakeLists.txt
+@@ -7,7 +7,8 @@ set(LIB_SOURCE_FILES
+     raw_temp_facade.cpp
+     external_c_lib.c
+     hardware_monitor.cpp
+-    codings.cpp)
++    codings.cpp
++    system_alarm_handler.cpp)
+ 
+ set(ADDITIONAL_INCLUDE_DIRS ../inc)
+ 
+diff --git a/src/hardware_monitor.cpp b/src/hardware_monitor.cpp
+index a80d65f..fa9d15a 100644
+--- a/src/hardware_monitor.cpp
++++ b/src/hardware_monitor.cpp
+@@ -21,4 +21,21 @@ int HardwareMonitor::Update() {
+             return 0;
+         }
+ 
+-};
+\ No newline at end of file
++};
++
++string HardwareMonitor::checkValueAndReport(ThermalReader& reader, Codings& codings) {
++    HardwareMonitor hw(reader, codings);
++    int result = hw.Update();
++    std::this_thread::sleep_for(std::chrono::milliseconds(100));
++
++    if(result < codings.GetMinThreshold()) {
++        std::cout<<"The value is under limits"<< result<< std::endl;
++        return alarm_handler_->ReportUnderheating();
++    } else if (result > codings.GetMaxThreshold()) {
++        std::cout<<"The value is above limits"<<result <<std::endl;
++        return alarm_handler_->ReportOverheating();
++    } else {
++        std::cout<<"The value is within limits"<<result <<std::endl;
++        return "The value is within limits\n";
++    }
++}
+\ No newline at end of file
