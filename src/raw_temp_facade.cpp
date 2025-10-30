@@ -7,3 +7,8 @@ int RawTempFacade::ReadRawTemp(int sensor_id)
 {
     return read_raw_temp(sensor_id);
 }
+
+void RawTempFacade::restartTemp() 
+{
+    reset_raw_temps();
+}

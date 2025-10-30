@@ -16,3 +16,11 @@ int read_raw_temp(int sensor_id)
     }
     return sensor_temperatures[sensor_id - 1];
 }
+
+void reset_raw_temps(void)
+{
+    for (int i = 0; i < 5; i++)
+    {
+        sensor_temperatures[i] = 0;
+    }
+}

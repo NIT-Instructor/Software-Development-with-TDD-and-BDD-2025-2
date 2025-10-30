@@ -3,9 +3,10 @@
 struct HardwareMonitorConditions {
     /*
      * heating_status:
+            0 -> Normal
      *      1 -> Underheating
      *      2 -> Overheating
-     *      3 -> Pulsible
+     *      3 -> Not Plausible
      */
     int num_of_checks;
     std::vector<int> heating_status;
@@ -26,4 +27,6 @@ TEST_P(FixtureHardwareMonitor, GivenValues)
     {
         EXPECT_EQ(hardware_monitor.hwm_function(), GetParam().heating_status[i]);
     }
+
+    raw_temp_facade.restartTemp();
 }
