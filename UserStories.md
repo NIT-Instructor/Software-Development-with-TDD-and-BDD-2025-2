@@ -191,6 +191,35 @@ I want to run acceptance tests using real implementations of all system componen
 **And** process it through the actual ThermalReader and Filter components
 **And** produce filtered temperature results that reflect the expected real-world data flow without using mocks.
 
+### **User Story 5.3: Run parameterized tests using real temperature data to validate thermal filtering logic**
+
+**As a developer**,
+I want to use parameterized acceptance tests with real C library input
+**So that** I can validate the thermal filtering logic under multiple conditions and ensure realistic, reliable results
+
+**Scenario 1: Run parameterized tests with different update counts**
+**Given** a set of test parameters including numOfUpdates and expectedFilteredValue
+**And**   a test fixture class inheriting from ::testing::TestWithParam<ParamStruct>
+**When**  I run the parameterized test using the TEST_P macro
+**Then**  UpdateCurrentTemp() is called the specified number of times
+**And**   the filtered temperature is retrieved
+**And**   the result matches the expected filtered value for each parameter set.
+
+**Scenario 2: Execute tests using real C library temperature loop**
+
+**Given**  the test is linked to the real C library
+**And**    the library returns temperatures from 0 to 120 cyclically
+**When**   UpdateCurrentTemp() is invoked in a loop across multiple test cases
+**Then**   realistic temperature data flows into the system
+**And**    the thermal filtering logic handles edge cases, including wrap-around behavior
+
+**Scenario 3: Efficiency and clarity of tests**
+
+**Given** parameterized tests are implemented
+**When**  I add new test cases
+**Then**  I can do so without duplicating test logic
+**And**   the test scenarios remain readable and maintainable
+
 
 
 
