@@ -23,11 +23,15 @@ INSTANTIATE_TEST_SUITE_P(HardwareMonitorSuite,
 TEST_P(FixtureClassHardwareMonitor, WhenRunningPeriodicUpdate_ThenThermalReaderIsUpdatedEvery100ms)
     {
         const auto &param = GetParam();
+        int actual_updates = 0;
+
 
         for (int i = 0; i < param.num_of_update_current_temp_called; ++i)
         {
             hardware_monitor_.Update();
+            std::this_thread::sleep_for(std::chrono::milliseconds(100));
+            actual_updates++;
+        }
+        EXPECT_EQ(actual_updates, param.expected_filter_updates);
 
-        EXPECT_EQ(1, param.expected_filter_updates);
-    }
 };
