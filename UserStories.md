@@ -221,11 +221,11 @@ I want to use parameterized acceptance tests with real C library input
 **And**   the test scenarios remain readable and maintainable
 
 
-### **Project: Hardware Monitor Temperature and Report Alarms**
+### **Project - User Story 1: Hardware Monitor Temperature and Report Alarms**
  
 **As a developer**,
-I want the HardwareMonitor to continuously track and filter temperature readings, validate their plausibility, and trigger alarms when thresholds are breached
-**So that** the system can prevent hardware damage caused by overheating or underheating conditions.
+I want the HardwareMonitor to continuously track and filter temperature readings
+**So that** the system always has up-to-date and smoothed temperature values.
  
 **Scenario 1: Regular Temperature Update and Filtering**
 **Given** the HardwareMonitor is active
@@ -234,21 +234,22 @@ I want the HardwareMonitor to continuously track and filter temperature readings
 **And** updates the temperature filter with the new value
 **Then** the filtered temperature value should reflect the latest readings
 **And** the filter should smooth out transient spikes or noise.
- 
-**Scenario 2: Overheating Detection and Alarm Reporting**
- 
-**Given** the filtered temperature exceeds the defined maximum threshold
-**And** the temperature reading is plausible
-**When** the HardwareMonitor compares the temperature to the thresholds
-**Then** it should report an overheating alarm to the SystemAlarmHandler
-**And** log the event with timestamp and temperature value.
- 
-**Scenario 3: Underheating Detection and Alarm Reporting**
- 
-**Given** the filtered temperature falls below the defined minimum threshold
-**And** the temperature reading is plausible
-**When** the HardwareMonitor compares the temperature to the thresholds
-**Then** it should report an underheating alarm to the SystemAlarmHandler
-**And** log the event with timestamp and temperature value.
 
----
+**Scenario 2: Update Not Called**
+
+**Given** the HardwareMonitor is active
+**When** no update is called
+**Then** the filter remains unchanged
+
+**Scenario 3: Update Called Faster Than 100ms**
+
+**Given** the HardwareMonitor is active
+**When** updates are called faster than 100ms
+**Then** the filter should not be updated too often
+
+**Scenario 4: Update Called Slower Than 100ms**
+
+**Given** the HardwareMonitor is active
+**When** updates are called slower than 100ms
+**Then** the filter should be updated on each call
+
