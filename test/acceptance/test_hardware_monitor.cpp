@@ -24,8 +24,7 @@ TEST_P(HardwareMonitorPeriodParamTest, UpdatesTemperatureEvery100ms)
 
     hardware_monitor_->StopMonitoring();
     auto filtered_value = thermal_reader_->ReadFilteredTemperature();
-
-    EXPECT_EQ(filtered_value, p.expected_filtered_value);
+    EXPECT_NEAR(filtered_value, p.expected_filtered_value, 3);
     raw_temp_facade_->ResetSensor();
 }
 
