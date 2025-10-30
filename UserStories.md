@@ -158,4 +158,163 @@ I want to configure MockFilter to return different values on successive and repe
 - **Then** the third and all subsequent calls should return Z 
 
 
----
+### **User Story 5.1: Separate Acceptance Tests from Unit Tests**
+
+**As a developer**,
+I want to organize acceptance tests in a separate directory with their own build configuration,
+**So that** the project structure remains clean, modular, and easy to maintain.
+
+**Scenario 1: Create a dedicated directory for acceptance tests**
+- **Given** a project that already contains unit tests in the /tests directory
+- **When** I create a new /acceptance directory
+- **Then** the /acceptance directory should contain all acceptance test source files and related configurations
+- **And** acceptance test files should not be mixed with unit test files.
+
+
+**Scenario 2: Include necessary libraries and dependencies**
+
+**Given** the acceptance tests rely on external dependencies
+**When** the acceptance build is set up
+**Then** it should link against the raw_temp C library and any other required dependencies
+**And** ensure that the build passes without unresolved symbols.
+
+### **User Story 5.2: Use Real Implementations in Acceptance Tests**
+
+**As a developer**,
+I want to run acceptance tests using real implementations of all system components,
+**So that** I can validate that the integrated system behaves correctly under realistic conditions.
+
+**Scenario: Execute acceptance tests with real implementations**
+**Given** the acceptance test environment is configured with real classes (Filter, ThermalReader, and RawTempFacade)
+**When** the acceptance tests are executed
+**Then** the system should read raw temperature data via the real RawTempFacade
+**And** process it through the actual ThermalReader and Filter components
+**And** produce filtered temperature results that reflect the expected real-world data flow without using mocks.
+
+### **User Story 5.3: Run parameterized tests using real temperature data to validate thermal filtering logic**
+
+**As a developer**,
+I want to use parameterized acceptance tests with real C library input
+**So that** I can validate the thermal filtering logic under multiple conditions and ensure realistic, reliable results
+
+**Scenario 1: Run parameterized tests with different update counts**
+**Given** a set of test parameters including numOfUpdates and expectedFilteredValue
+**And**   a test fixture class inheriting from ::testing::TestWithParam<ParamStruct>
+**When**  I run the parameterized test using the TEST_P macro
+**Then**  UpdateCurrentTemp() is called the specified number of times
+**And**   the filtered temperature is retrieved
+**And**   the result matches the expected filtered value for each parameter set.
+
+**Scenario 2: Execute tests using real C library temperature loop**
+
+**Given**  the test is linked to the real C library
+**And**    the library returns temperatures from 0 to 120 cyclically
+**When**   UpdateCurrentTemp() is invoked in a loop across multiple test cases
+**Then**   realistic temperature data flows into the system
+**And**    the thermal filtering logic handles edge cases, including wrap-around behavior
+
+**Scenario 3: Efficiency and clarity of tests**
+
+**Given** parameterized tests are implemented
+**When**  I add new test cases
+**Then**  I can do so without duplicating test logic
+**And**   the test scenarios remain readable and maintainable
+
+
+### **Project - User Story 1: Hardware Monitor Temperature and Report Alarms**
+ 
+**As a developer**,
+I want the HardwareMonitor to continuously track and filter temperature readings
+**So that** the system always has up-to-date and smoothed temperature values.
+ 
+**Scenario 1: Regular Temperature Update and Filtering**
+**Given** the HardwareMonitor is active
+**And** a valid temperature sensor is providing readings
+**When** the HardwareMonitor samples the temperature every 100ms
+**And** updates the temperature filter with the new value
+**Then** the filtered temperature value should reflect the latest readings
+**And** the filter should smooth out transient spikes or noise.
+
+**Scenario 2: Update Not Called**
+
+**Given** the HardwareMonitor is active
+**When** no update is called
+**Then** the filter remains unchanged
+
+**Scenario 3: Update Called Faster Than 100ms**
+
+**Given** the HardwareMonitor is active
+**When** updates are called faster than 100ms
+**Then** the filter should not be updated too often
+
+**Scenario 4: Update Called Slower Than 100ms**
+
+**Given** the HardwareMonitor is active
+**When** updates are called slower than 100ms
+**Then** the filter should be updated on each call
+
+### **Project - User Story 2: Configure and Validate Temperature Thresholds**
+
+**As a developer**,
+
+I want to define minimum and maximum temperature thresholds
+**So that** the monitoring system can trigger alarms when limits are exceeded
+
+**Scenario 1: Return current thresholds**
+
+**Given** the system is initialized
+**When**  the thresholds are requested
+**Then**  the coding module returns the current minimum and maximum temperature values
+
+**Scenario 2: Accept thresholds within limits**
+
+**Given**  predefined acceptable threshold limits
+**When**   a new minimum and maximum are set within these limits
+**Then**   the values are accepted and saved
+
+**Scenario 3: Reject thresholds outside limits**
+
+**Given**  predefined acceptable threshold limits
+**When**   a value is set that falls outside the allowed range
+**Then**   the coding module rejects it and reports an error
+
+
+### **Project - User Story 3: Report and log temperature-related system alarms**
+ 
+**As a developer**,
+I want to report and log overheating and underheating temperature alarms
+**So that** the system can respond appropriately and provide traceability of critical events
+ 
+**Scenario 1: Report overheating alarm**
+**Given** a filtered temperature exceeds the defined maximum threshold
+**And**   the HardwareMonitor reports the alarm to SystemAlarmHandler
+**When**  the SystemAlarmHandler receives the overheating signal
+**Then**  it should log the overheating alarm message to the console
+**And**   make  the overheating alarm available to the system
+ 
+**Scenario 2: Report underheating alarm**
+**Given** a filtered temperature is below the defined minimum threshold
+**And**   the HardwareMonitor reports the alarm to SystemAlarmHandler
+**When**  the SystemAlarmHandler receives the underheating signal
+**Then**  it should log the underheating alarm message to the console
+**And**   make the underheating alarm available to the system
+ 
+
+
+**Dave Farley about, fun facts and quotes**
+
+“There should be two tasks for a human being to perform to deploy software into a development, test, or production environment: to pick the version and environment and to press the “deploy” button.” — Dave Farley 
+
+
+“In software, when something is painful, the way to reduce the pain is to do it more frequently, not less.” — Dave Farley 
+
+
+“The earlier you catch defects, the cheaper they are to fix.” — Dave Farley 
+
+
+Dave Farley is co-author of the influential book Continuous Delivery, which helped shape how teams think about test, build, deploy and release automation. 
+
+
+Although he’s closely associated with testing and quality practices, Farley emphasizes that testing alone isn’t enough — you need disciplined engineering practices, automation, fast feedback loops and good design. 
+
+In his talks on acceptance testing, he stresses that tests should focus on “what” the system should do rather than “how” it does it, treating tests as executable specifications rather than brittle scripts.
